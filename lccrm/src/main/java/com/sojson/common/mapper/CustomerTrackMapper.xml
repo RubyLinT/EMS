@@ -57,6 +57,7 @@
 		from t_tracking tt, t_customerinfo tc
 		where
 		tc.customId=tt.customId and tt.id = #{id,jdbcType=BIGINT}
+		and tc.delFlag=1
 	</select>
 	<!-- 根据customeId取跟踪记录 -->
 	<select id="findTrackBycustomId" resultType="com.sojson.customerTrack.bo.CustomerTrackBo">

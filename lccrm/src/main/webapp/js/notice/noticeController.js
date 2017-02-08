@@ -336,25 +336,27 @@ angular.module('notice.controller',[])
 				layer.msg("此消息已推送!");
 				return;
 			}
-			var tr = $(currObj).parents('tr');
-        	var id = $(tr.children()[0]).text();
-        	var params = {
-        			id:id,
-        			isPush:0
-        	}
-			// 调用service分页查询业务功能
-            var promise = noticeService.pushNotice(params);
-            //调用成功的回调函数
-            promise.success(function(data) {
-            	layer.msg("推送成功!");
-            	setTimeout(function(){
-            		$scope.queryNotice(1);
-     			},1000);
-            });
-            //调用失败的回调函数
-            promise.error(function() {
-                layer.closeAll();
-                layer.msg('网络连接请求失败！');             
-            });  
+			$.alertable.confirm("您确定要删除吗?").then(function(){
+				var tr = $(currObj).parents('tr');
+	        	var id = $(tr.children()[0]).text();
+	        	var params = {
+	        			id:id,
+	        			isPush:0
+	        	}
+				// 调用service分页查询业务功能
+	            var promise = noticeService.pushNotice(params);
+	            //调用成功的回调函数
+	            promise.success(function(data) {
+	            	layer.msg("推送成功!");
+	            	setTimeout(function(){
+	            		$scope.queryNotice(1);
+	     			},1000);
+	            });
+	            //调用失败的回调函数
+	            promise.error(function() {
+	                layer.closeAll();
+	                layer.msg('网络连接请求失败！');             
+	            }); 
+			});
         }
     }]);

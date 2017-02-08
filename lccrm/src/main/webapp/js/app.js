@@ -44,7 +44,7 @@ myApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$url
                 controller:'addDicController'
             })
             .state('dictionaryInsert',{
-                url:'/dictionaryInsert/{id}/{dicId}/{dicName}/{higherDicId}/{dicTitle}/{orderNum}',
+                url:'/dictionaryInsert/{id}/{dicId}/{dicName}/{higherDicId}/{dicTitle}/{orderNum}/{higherDicTitle}',
                 templateUrl:'ui/dictionary/dictionaryInsert.html',
                 controller:'insertDicController'
             })

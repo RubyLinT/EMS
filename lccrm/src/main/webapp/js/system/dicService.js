@@ -144,7 +144,6 @@ angular.module('dic.service',[ ])
 				var params = {
 						ids:ids
 				}
-				console.log(params);
 				//发送请求
 				var promise = $http.post('system/deleteDictionaryById.shtml',params);
 				//返回一个promise对象，给controller

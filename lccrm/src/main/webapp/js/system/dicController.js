@@ -137,20 +137,53 @@ angular.module('dic.controller',[])
         $scope.higherDicId = $stateParams.higherDicId;//上级ID1
         $scope.dicTitle = $stateParams.dicTitle;//字典内容
         $scope.orderNum = $stateParams.orderNum;//内容序号     
-        $scope.higherDicTitle = $stateParams.higherDicTitle;//上级ID1
-        //获取上级联动数据
+        $scope.higherDicTitle = $stateParams.higherDicTitle;//上级Title
+        var htmlHigherDicId = '';
+        htmlHigherDicId += '<option value="'+$stateParams.higherDicId+'">'+$stateParams.higherDicId+'</option>';
+        $('#higherDicId').append(htmlHigherDicId);
+        var htmlHigherDicTitle = '';
+        htmlHigherDicTitle += '<option value="'+$stateParams.higherDicTitle+'">'+$stateParams.higherDicTitle+'</option>';
+        $('#higherDicTitle').append(htmlHigherDicTitle);
+        //上级Id生成关联下拉框
         $('#higherDicId').focusin(function(){
-        	var promise = addDicService.queryHigherIdDicMsg($scope.higherDicId);
-      	    //成功的回调函数
-      	    promise.success(function(data) {       
-      	        $scope.data = data;                
-      	    });
-      	    //失败的回调函数
-      	    promise.error(function() {
-      	        layer.closeAll();
-      	        layer.msg('网络连接请求失败！');             
-      	    });
-         });
+        	$('#higherDicId').empty();
+        	var htmlHigherDicIdF = '';
+        	//查询上级ID1数据
+        	var promise = addDicService.queryHigherIdDicMsg();
+    	      	//调用service里的新增字典功能，成功的回调函数
+        	promise.success(function(data) {  
+                //去除空数据
+                for(var i = 0;i < data.length;i ++){
+                	htmlHigherDicIdF += '<option value="'+data[i]+'">'+data[i]+'</option>';
+                }
+                $('#higherDicId').append(htmlHigherDicIdF);
+                $('#higherDicTitle').focusin();
+          	});
+          	//调用service里的新增字典功能，失败的回调函数
+        	promise.error(function() {
+              	layer.closeAll();
+              	layer.msg('网络连接请求失败！');             
+          	});
+        });
+        $('#higherDicTitle').focusin(function(){
+        	$('#higherDicTitle').empty();
+        	var htmlHigherDicTitleF = '';
+        	//查询上级ID1数据
+        	var promise = addDicService.queryHigherId2DicMsg($('#higherDicId').val());
+    	      	//调用service里的新增字典功能，成功的回调函数
+        	promise.success(function(data) {  
+                //去除空数据
+                for(var i = 0;i < data.length;i ++){
+                	htmlHigherDicTitleF += '<option value="'+data[i]+'">'+data[i]+'</option>';
+                }
+                $('#higherDicTitle').append(htmlHigherDicTitleF);
+          	});
+          	//调用service里的新增字典功能，失败的回调函数
+        	promise.error(function() {
+              	layer.closeAll();
+              	layer.msg('网络连接请求失败！');             
+          	});
+        });
         //修改字典方法
         $scope.modDic = function() {
         	//判断表单验证是否通过，成功则向下继续执行
@@ -173,10 +206,10 @@ angular.module('dic.controller',[])
                 	id:$scope.id,
                     dicId:$scope.dicId,
                     dicName:$scope.dicName,
-                    higherDicId:$scope.higherDicId,
+                    higherDicId:$('#higherDicId').val(),
                     dicTitle:$scope.dicTitle,
                     orderNum:$scope.orderNum,
-                    higherDicTitle:$scope.higherDicTitle
+                    higherDicTitle:$('#higherDicTitle').val()
                 }
             	//调用service里的修改字典功能
                 var promise = modDicService.modDicMsg(params);
@@ -196,7 +229,7 @@ angular.module('dic.controller',[])
             }                   
         }
     }])
-    .controller('insertDicController', ['$scope','$state','$stateParams','insertDicService', function($scope,$state,$stateParams,insertDicService){
+    .controller('insertDicController', ['$scope','$state','$stateParams','insertDicService','addDicService', function($scope,$state,$stateParams,insertDicService,addDicService){
     	if($('#aside').offset().left == 0){
 	    	$('#mainView').animate({left:212},10);
     	} else {
@@ -209,6 +242,7 @@ angular.module('dic.controller',[])
         $scope.higherDicId = $stateParams.higherDicId;//上级ID1
         $scope.dicTitle = $stateParams.dicTitle;//字典内容
         $scope.orderNum = $stateParams.orderNum;//内容序号
+        $scope.higherDicTitle = $stateParams.higherDicTitle;//上级Title
         //修改字典方法
         $scope.insertDic = function() {
         	//判断表单验证是否通过，成功则向下继续执行
@@ -230,7 +264,8 @@ angular.module('dic.controller',[])
                     dicName:$scope.dicName,
                     higherDicId:$scope.higherDicId,
                     dicTitle:$scope.dicTitle,
-                    orderNum:$scope.orderNum 
+                    orderNum:$scope.orderNum,
+                    higherDicTitle:$scope.higherDicTitle 
                 }
             	//调用service里的修改字典功能
                 var promise = insertDicService.insertDicMsg(params);
@@ -553,8 +588,9 @@ angular.module('dic.controller',[])
         		var higherDicId = $($($('#table1 :checked').parents('tr')).children()[5]).text();
         		var dicTitle = $($($('#table1 :checked').parents('tr')).children()[6]).text();
         		var orderNum = $($($('#table1 :checked').parents('tr')).children()[7]).text();
+        		var higherDicTitle = $($($('#table1 :checked').parents('tr')).children()[8]).text();
         		//跳转到增添画面
-        		$state.go('dictionaryInsert',{id:id,dicId:dicId,dicName:dicName,higherDicId:higherDicId,dicTitle:dicTitle,orderNum:orderNum});
+        		$state.go('dictionaryInsert',{id:id,dicId:dicId,dicName:dicName,higherDicId:higherDicId,dicTitle:dicTitle,orderNum:orderNum,higherDicTitle:higherDicTitle});
         	}
         }
         

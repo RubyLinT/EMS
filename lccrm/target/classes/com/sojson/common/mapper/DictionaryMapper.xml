@@ -88,8 +88,8 @@
   <select id="findByHigherId" resultType="com.sojson.systemControl.bo.DictionaryBo">
   	select dicId as higherDicId, dicTitle as higherDicTitle from t_dictionary 
   	where 1=1
-  		and higherId = #{higherId,jdbcType=BIGINT}
-  		and id = #{id,jdbcType=BIGINT}
+  		and id = #{higherId,jdbcType=BIGINT}
+  	<!-- 	and id = #{id,jdbcType=BIGINT} -->
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >

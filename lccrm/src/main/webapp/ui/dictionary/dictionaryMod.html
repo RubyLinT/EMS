@@ -14,21 +14,17 @@
             <div class="col-sm-7">
                 <input type="text" id="dicName" ng-model="dicName" class="form-control" placeholder="请输入字典名称" disabled>
             </div>
-        </div>    
+        </div> 
         <!-- 上级ID -->
         <div class="form-group"> 
             <label for="higherDicId" class="col-sm-3 control-label">上级ID:</label> 
             <div class="col-sm-9">
-                <input type="text" id="higherDicId" ng-model="higherDicId" class="form-control" list="datalist1" placeholder="请输入上级ID" style="margin-bottom: 15px;">
-                <datalist id="datalist1">
-                    <option value="{{item}}" label="{{item}}" ng-repeat="item in data"></option>
-                </datalist> 
-                <input type="text" id="higherDicTitle" ng-model="higherDicTitle" class="form-control" list="datalist2" placeholder="请输入上级ID">
-                <datalist id="datalist2">
-                    <option value="{{item2}}" label="{{item2}}" ng-repeat="item2 in data2"></option>
-                </datalist> 
+                <select class="form-control" id="higherDicId" style="margin-bottom: 15px;">
+            	</select>
+            	<select class="form-control" id="higherDicTitle">
+            	</select>
             </div>               
-        </div>  
+        </div>    
         <!-- 字典内容 -->    
         <div class="form-group"> 
             <label for="dicTitle" class="col-sm-3 control-label"><span class="color">*</span>字典内容:</label>

@@ -336,5 +336,6 @@
 	<select id="findWorkUnit" resultType="com.sojson.customerInfo.bo.CustomerInfoBo">
 		select workUnit,id
 		from t_customerInfo
+		where delFlag=1
 	</select>
 </mapper>

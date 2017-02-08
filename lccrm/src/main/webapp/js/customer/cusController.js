@@ -849,8 +849,12 @@ angular.module('cus.controller',[])
     				$('#modalBody').empty();
         			var html = '';
                 	for(var i = 0;i < data.length;i ++){
+                		var nextTrackDate = '';
+                		if(data[i].nextTrackDate != ''){
+                			nextTrackDate = data[i].nextTrackDate.substr(0,4) + '-' + data[i].nextTrackDate.substr(4,2) + '-' + data[i].nextTrackDate.substr(6,2);
+                		}
                 		var j = i + 1;
-                		html += '<div>';
+                		html += '<div class="bottom-margin">';
                 		html += '	<h4 class="modal-title" id="myModalLabel">记录' + j + '</h4>';
                 		html += '	<div class="row">';
                 		html += '		<div class="col-md-3 text-right">单位名称:</div>';
@@ -878,13 +882,12 @@ angular.module('cus.controller',[])
                 		html += '	</div>';
                 		html += '	<div class="row">';
                 		html += '		<div class="col-md-3 text-right">预计下次跟进时间:</div>';
-                		html += '		<div class="col-md-8 no-padding">' + data[i].nextTrackDate + '</div>';
+                		html += '		<div class="col-md-8 no-padding">' + nextTrackDate + '</div>';
                 		html += '	</div>';
                 		html += '	<div class="row">';
                 		html += '		<div class="col-md-3 text-right">预计跟进内容:</div>';
                 		html += '		<div class="col-md-8 no-padding">' + data[i].nextComtent + '</div>';
                 		html += '	</div>';
-                		html += '	<div class="row">';
                 		html += '</div>';
                 	}
                 	$('#modalBody').append(html);
@@ -1173,6 +1176,7 @@ angular.module('cus.controller',[])
             var customCity = $('#customCity :selected').val();//城市
             var customFrom = $('#customFrom :selected').val();//来源
             var ascription = $('#ascription').val();//来源
+            var workPhone = $('#workPhone').val();//联系方式
             if($scope.workUnit == ''){ 
                 layer.msg("单位名称不能为空!");  
                 return; 
@@ -1191,6 +1195,9 @@ angular.module('cus.controller',[])
             } else if(customFrom == 0){
             	layer.msg("来源不能为空!");
             	return; 
+            }else if(workPhone != '' && !(/^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})$/.test(workPhone)) && !(/^1[3|4|5|7|8][0-9]{9}$/.test(workPhone))){ 
+                layer.msg("联系方式不正确,请输入8~11位的手机号或9~12位或1-4位的分机号的座机号!");  
+                return; 
             }
 //            else if($('#headN').text() != '我的客户'){
 //            	if($scope.ascription == ''){

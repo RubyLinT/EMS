@@ -29,6 +29,10 @@ a:hover {
 #navbar{
 	overflow-y: visible;
 }
+/*查看跟进记录，每条记录之间的距离*/
+.bottom-margin {
+	margin-bottom:30px;
+}
 /*标题样式*/
 .header-span{
 	font-weight:100;

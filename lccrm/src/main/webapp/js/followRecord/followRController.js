@@ -5,8 +5,28 @@ angular.module('fol.controller',[])
 		$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">跟进记录</i>');
 		$('.list-group-item').removeClass('hl');
     	$('#followRLink').addClass('hl');
-    	$('#startTime').fdatepicker();
-    	$('#endTime').fdatepicker();
+    	var nowTemp = new Date();
+		var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+		var checkin = $('#startTime').fdatepicker({
+			onRender: function (date) {
+				return date.valueOf() < now.valueOf() ? 'disabled' : '';
+			}
+		}).on('changeDate', function (ev) {
+			if (ev.date.valueOf() > checkout.date.valueOf()) {
+				var newDate = new Date(ev.date)
+				newDate.setDate(newDate.getDate() + 1);
+				//checkout.update(newDate);
+			}
+			checkin.hide();
+			//$('#endTime')[0].focus();
+		}).data('datepicker');
+		var checkout = $('#endTime').fdatepicker({
+			onRender: function (date) {
+				return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+			}
+		}).on('changeDate', function (ev) {
+			checkout.hide();
+		}).data('datepicker');
     	$scope.totle = "";//共几条记录
     	$scope.customId = "";//单位名称
         $scope.ascription = "";//跟踪人
@@ -281,7 +301,6 @@ angular.module('fol.controller',[])
             		} else {
             			html += '<tr style="display:none;" class="body-tr" data-id="'+data[i].id+'">';
             		}
-            		html += '	<th class="short"><input type="checkbox" name="select"></th>';
             		html += '	<th class="no">'+j+'</th>';
             		html += '	<th>'+$scope.data[i].workUnit+'</th>';
             		html += '	<th>'+$scope.data[i].ascription+'</th>';
@@ -358,15 +377,6 @@ angular.module('fol.controller',[])
         		$scope.queryFollowR($scope.currPage+1);
         	}
         }
-        //全选按钮单击事件
-        $('#all').click(function(e){
-        	//判断当前是否全选，是则全不选，否则全选
-        	if($('#table1 tr:not(.ng-hide,.header-tr) :checked').length == $('#table1 tr:not(.ng-hide,.header-tr)').length){
-        		$('#table1 tr :checkbox').prop('checked',false);
-        	} else {
-        		$('#table1 tr :checkbox').prop('checked',true);
-        	}        	
-        });
     }])
     //新建控制器
     .controller('followRecordAddController', ['$scope','$state','$stateParams','followRService',function($scope,$state,$stateParams,followRService){
@@ -405,8 +415,28 @@ angular.module('fol.controller',[])
     	} else {
 	    	$('#mainView').animate({left:60},10);
     	}
-    	$('#recordTime').fdatepicker();
-    	$('#nextTrackDate').fdatepicker();
+    	var nowTemp = new Date();
+		var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+		var checkin = $('#recordTime').fdatepicker({
+			onRender: function (date) {
+				return date.valueOf() < now.valueOf() ? 'disabled' : '';
+			}
+		}).on('changeDate', function (ev) {
+			if (ev.date.valueOf() > checkout.date.valueOf()) {
+				var newDate = new Date(ev.date)
+				newDate.setDate(newDate.getDate() + 1);
+				//checkout.update(newDate);
+			}
+			checkin.hide();
+			//$('#nextTrackDate')[0].focus();
+		}).data('datepicker');
+		var checkout = $('#nextTrackDate').fdatepicker({
+			onRender: function (date) {
+				return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+			}
+		}).on('changeDate', function (ev) {
+			checkout.hide();
+		}).data('datepicker');
     	$('.datepicker').css('padding-right',28);
     	$('.datepicker').css('padding-left',28);
     	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">跟进记录&gt;新建记录</i>');
