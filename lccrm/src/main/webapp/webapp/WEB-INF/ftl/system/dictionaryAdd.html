@@ -1,0 +1,59 @@
+<div class="container col-xs-12">
+    <!-- 标题区 -->
+    <h1 class="page-header">新建字典</h1>
+    <!-- 表单区 -->
+    <form class="form-horizontal" role="form" ng-controller="dicController">        
+        <div class="form-group"> 
+            <label for="dicId" class="col-sm-2 control-label">*字典ID:</label>
+            <div class="col-sm-7">
+                <input type="text" id="dicId" ng-model="dicId" class="form-control" placeholder="请输入字典ID">
+            </div>
+        </div>  
+        <div class="form-group"> 
+            <label for="dicName" class="col-sm-2 control-label">*字典名称:</label>
+            <div class="col-sm-7">
+                <input type="text" id="dicName" ng-model="dicName" class="form-control" placeholder="请输入字典名称">
+            </div>
+        </div>  
+        <div class="form-group"> 
+            <label for="higherId" class="col-sm-2 control-label">上级ID:</label>            
+            <div class="col-sm-3">
+                <input type="text" id="higherId" ng-model="higherId" class="form-control" list="datalist1" placeholder="请输入上级ID">
+                <datalist id="datalist1">
+                    <option value="a" label="a"></option>
+                    <option value="b" label="b"></option>
+                    <option value="c" label="c"></option>
+                    <option value="d" label="d"></option>
+                </datalist> 
+            </div>     
+            <div class="col-sm-3">
+                <input type="text" id="higherId" ng-model="higherId" class="form-control" list="datalist1" placeholder="请输入上级ID">
+                <datalist id="datalist1">
+                    <option value="a" label="a"></option>
+                    <option value="b" label="b"></option>
+                    <option value="c" label="c"></option>
+                    <option value="d" label="d"></option>
+                </datalist> 
+            </div>               
+        </div>       
+        <div class="form-group"> 
+            <label for="dicTitle" class="col-sm-2 control-label">*字典内容:</label>
+            <div class="col-sm-7">
+                <input type="text" id="dicTitle" ng-model="dicTitle" class="form-control" placeholder="请输入字典内容">
+            </div>
+        </div>  
+        <div class="form-group"> 
+            <label for="orderNum" class="col-sm-2 control-label">排序:</label>
+            <div class="col-sm-7">
+                <input type="text" id="orderNum" ng-model="orderNum" class="form-control" placeholder="请输入排序">
+            </div>
+        </div>      
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <a ui-sref="dictionary" class="btn btn-success">关闭</a>
+                <button type="button" class="btn btn-success" ng-click="checkDic();">保存</button>
+            </div>
+        </div>         
+    </form>
+</div>
+	 

@@ -1,0 +1,50 @@
+<div class="container col-xs-11 container-down">
+    <!-- 表单区 -->
+    <form class="form-horizontal" role="form">        
+        <div class="form-group"> 
+            <label for="employeeName" class="col-sm-3 control-label"><span class="color">*</span>员工姓名：</label>
+            <div class="col-sm-7">
+                <input type="text" id="employeeName" ng-model="employeeName" class="form-control" placeholder="请输入员工姓名">
+            </div>
+        </div>  
+        <div class="form-group"> 
+            <label for="employeePost" class="col-sm-3 control-label"><span class="color">*</span>员工职务：</label>
+            <div class="col-sm-7">
+                <select class="form-control" id="employeePost" placeholder="请选择员工职务" value="0">
+               		<option value="0"></option>
+            		<option ng-repeat="item in employeePost" value="{{item.id}}" name="employeePost">{{item.dicTitle}}</option>
+           	 	</select>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label for="employeeCellPhone" class="col-sm-3 control-label">员工手机号：</label>
+            <div class="col-sm-7">
+                <input type="text" id="employeeCellPhone" ng-model="employeeCellPhone" class="form-control" placeholder="请输入员工手机号">
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label for="employeeEmail" class="col-sm-3 control-label">员工邮箱：</label>
+            <div class="col-sm-7">
+                <input type="text" id="employeeEmail" ng-model="employeeEmail" class="form-control" placeholder="请输入员工邮箱">
+            </div>
+        </div>   
+        <div class="form-group"> 
+            <label for="department" class="col-sm-3 control-label"><span class="color">*</span>所在部门：</label>
+            <div class="col-sm-7 dropinput">
+            	<input type="text" id="department" ng-model="department" class="form-control" placeholder="请选择所在部门" readonly value="" data-id="">
+            	<span class="caret dropselect" ng-click="showMenu();"></span>
+            	<div id="menuContent" class="menuContent dropztree" style="display:none;">
+					<ul id="treeDemo" class="ztree"></ul>
+				</div>
+            </div>
+        </div>  
+         
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <a ui-sref="employee" class="btn btn-default">返回</a>
+                <button type="button" class="btn btn-info" ng-click="addemp();">保存</button>
+            </div>
+        </div>         
+    </form>
+</div>
+	 

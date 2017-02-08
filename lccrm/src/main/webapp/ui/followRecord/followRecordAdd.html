@@ -1,0 +1,74 @@
+<div id="editDiv">
+	<form id="editForm" class="form-horizontal" role="form" name="editForm" enctype="multipart/form-data">
+		<div class="form-group"> 
+            <label for="customId" class="col-sm-3 control-label"><span class="color">*</span>单位名称:</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="customId">
+            		<option value=""></option>
+            		<option ng-repeat="item in customId" value="{{item.id}}">{{item.workUnit}}</option>
+            	</select>
+            </div>
+        </div>
+		<div class="form-group"> 
+            <label for="ascription" class="col-sm-3 control-label"><span class="color">*</span>跟踪人:</label>
+            <div class="col-sm-8">
+            	<select class="form-control" id="ascription">
+            		<option value=""></option>
+            		<option ng-repeat="item in ascription" value="{{item.email}}">{{item.nickname}}</option>
+            	</select>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label for="recordTime" class="col-sm-3 control-label"><span class="color">*</span>记录时间:</label>
+            <div class="col-sm-8">
+                <input type="text" id="recordTime" class="form-control" placeholder="请输入记录时间">
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label for="contactId" class="col-sm-3 control-label">联系人:</label>
+            <div class="col-sm-8">
+                <input type="text" id="contactId" ng-model="contactId" class="form-control" placeholder="请输入联系人" list="datalistLink">
+                <datalist id="datalistLink">
+                    <option value="{{item.linkMan}}" ng-repeat="item in dataLink" data-id="{{item.id}}"></option>
+                </datalist>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label for="trackContent" class="col-sm-3 control-label">跟进内容:</label>
+            <div class="col-sm-8">
+            	<textarea id="trackContent" name="trackContent" class="col-sm-6 form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label for="trackFile" class="col-sm-3 control-label">附件:</label>
+            <div class="col-sm-8">
+                <input type="file" id="trackFile" class="form-control">
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label for="nextTrackDate" class="col-sm-3 control-label">预计下次跟进时间:</label>
+            <div class="col-sm-8">
+                <input type="text" id="nextTrackDate" class="form-control" placeholder="请输入预计下次跟进时间">
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label for="nextComtent" class="col-sm-3 control-label">预计跟进内容:</label>
+            <div class="col-sm-8">
+            	<textarea id="nextComtent" name="nextComtent" class="col-sm-6 form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+        <div class="checkbox col-sm-offset-3">
+        	<label for="reminderDate" class="checkbox-inline">
+            	<input type="checkbox" id="reminderDate">提前几天提醒
+            </label>  
+        </div> 
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-3">
+            	<button type="button" class="btn btn-default" ui-sref="followRecord">返回</button>
+                <button type="button" id="saveButton" class="btn btn-info" ng-click="followRAdd();">提交</button>
+            </div>
+        </div>  
+	</form>
+</div>

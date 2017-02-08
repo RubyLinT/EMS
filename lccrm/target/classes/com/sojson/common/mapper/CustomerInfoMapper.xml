@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sojson.common.dao.CustomerInfoMapper">
+	<resultMap id="BaseResultMap" type="com.sojson.common.model.CustomerInfo">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="customId" property="customId" jdbcType="VARCHAR" />
+		<result column="addTime" property="addTime" jdbcType="DATE" />
+		<result column="addPeople" property="addPeople" jdbcType="BIGINT" />
+		<result column="workUnit" property="workUnit" jdbcType="VARCHAR" />
+		<result column="customCity" property="customCity" jdbcType="BIGINT" />
+		<result column="industry" property="industry" jdbcType="BIGINT" /> 
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="workPhone" property="workPhone" jdbcType="BIGINT" />
+		<result column="customType" property="customType" jdbcType="BIGINT" />
+		<result column="customState" property="customState" jdbcType="BIGINT" />
+		<result column="customFrom" property="customFrom" jdbcType="BIGINT" />
+		<result column="ascription" property="ascription" jdbcType="VARCHAR" />
+		<result column="ascriptionTime" property="ascriptionTime" jdbcType="VARCHAR" />
+		<result column="summary" property="summary" jdbcType="VARCHAR" />
+		<result column="delFlag" property="delFlag" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,customId,addTime,addPeople,workUnit,customCity,industry,address,workPhone,customType,
+		customState,customFrom,ascription, ascriptionTime,summary
+	</sql>
+	<sql id="limit_sql">
+		<if test="page_sql != null and page_sql != ''">
+			${page_sql}
+		</if>
+	</sql>
+
+	<sql id="where_all">
+		<where>
+			<if test="findContent != null and findContent !='' ">
+				and (
+				LOWER(workUnit) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
+				LOWER(customCity) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
+				LOWER(industry) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
+				LOWER(customType) like	CONCAT("%",#{findContent,jdbcType=bigint},"%") or
+				LOWER(customState) like CONCAT("%",#{findContent,jdbcType=bigint},"%") or
+				LOWER(customFrom) like CONCAT("%",#{findContent,jdbcType=bigint},"%")
+				)
+			</if>
+		</where>
+	</sql>
+
+
+	<!-- 下拉框-客户类型(khlb),客户来源(khly) ,客户行业(khhy),客户状态(khzt),所在城市(szcs)   -->
+	<select id="findDicTitleByDicId" resultType="com.sojson.customerInfo.bo.CustomerInfoBo">
+		select dicTitle,id
+		from t_dictionary
+		where dicId = #{dicId,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询客户基础信息表的数据数量 -->
+	<select id="findCount" resultMap="BaseResultMap">
+		select count(id) from t_customerinfo
+		<include refid="where_all" />
+	</select>
+
+	<!-- 客户公海查询数据  -->
+	<select id="findCustomerSea" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from t_customerinfo 
+		where 1=1
+		and delFlag = 1
+		and ascription is null
+		and ascriptionTime is null
+		<if test="workUnit != null and workUnit !='' " >
+        and workUnit like CONCAT("%",#{workUnit,jdbcType=VARCHAR},"%")
+	    </if>
+	    <if test="customType != null and customType !='' " >
+	        and customType = #{customType,jdbcType=BIGINT}
+	    </if>
+	    <if test="industry != null and industry !='' " >
+	        and industry = #{industry,jdbcType=BIGINT}
+	    </if>
+	    <if test="customState != null and customState !='' " >
+	        and customState = #{customState,jdbcType=BIGINT}
+	    </if>
+	</select>
+	
+	<!-- 我的客户模块，查询customer表所有数据-->
+	<select id="findAllCustomer" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from t_customerinfo where 1=1
+		and delFlag = 1
+		<!-- and ascription != "" -->
+		and ascriptionTime != ""
+		<if test="ascription != null and ascription !='' " >
+	        and ascription = #{ascription,jdbcType=VARCHAR}
+	    </if>
+		<if test="workUnit != null and workUnit !='' " >
+        	and workUnit like CONCAT("%",#{workUnit,jdbcType=VARCHAR},"%")
+	    </if>
+	    <if test="customType != null and customType !='' " >
+	        and customType = #{customType,jdbcType=BIGINT}
+	    </if>
+	    <if test="industry != null and industry !='' " >
+	        and industry = #{industry,jdbcType=BIGINT}
+	    </if>
+	    <if test="customState != null and customState !='' " >
+	        and customState = #{customState,jdbcType=BIGINT}
+	    </if>
+	    order by workUnit asc
+	</select>
+	<!-- 根据id查询用户信息 -->
+	<select id="findcustomCityByid" resultType="com.sojson.customerInfo.bo.CustomerInfoBo">
+		select td.dicTitle as customCity, td.id as customCityId
+		from t_dictionary td,t_customerinfo tc where
+		td.id=tc.customCity and tc.id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 根据id查询客户行业 -->
+	<select id="findindustryByid" resultType="com.sojson.customerInfo.bo.CustomerInfoBo">
+		select td.dicTitle as industry, td.id as industryId	
+		from t_dictionary td,t_customerinfo tc where
+		td.id=tc.industry and tc.id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 根据id查询客户类别 -->
+	<select id="findcustomTypeByid" resultType="com.sojson.customerInfo.bo.CustomerInfoBo">
+		select td.dicTitle as customType, td.id as customTypeId
+		from t_dictionary td,t_customerinfo tc where
+		td.id=tc.customType and tc.id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 根据id查询客户状态 -->
+	<select id="findcustomStateByid" resultType="com.sojson.customerInfo.bo.CustomerInfoBo">
+		select td.dicTitle as customState, td.id as customStateId
+		from t_dictionary td,t_customerinfo tc where
+		td.id=tc.customState and tc.id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 根据id查询客户来源 -->
+	<select id="findcustomFromByid" resultType="com.sojson.customerInfo.bo.CustomerInfoBo">
+		select td.dicTitle as customFrom, td.id as customFromId
+		from t_dictionary td,t_customerinfo tc where
+		td.id=tc.customFrom and tc.id = #{id,jdbcType=BIGINT}
+	</select>
+		 
+	<!-- 根据id查询所属业务员的昵称  by chendf 2017/1/9 -->
+	<select id="findNickNameByid" resultType="com.sojson.customerInfo.bo.CustomerInfoBo">
+		select u.nickname as ascription
+		from u_user u, t_customerinfo tc 
+		where u.email = tc.ascription and tc.id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<!-- 根据id查询增加人(addPeople)的昵称  by chendf 2017/1/9 -->
+	<select id="findAddPeopleByid" resultType="com.sojson.customerInfo.bo.CustomerInfoBo">
+		select u.nickname as addPeople
+		from u_user u, t_customerinfo tc 
+		where u.id = tc.addPeople and tc.id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 根据id逻辑删 -->
+	<update id="deleteCustomer" parameterType="com.sojson.common.model.CustomerInfo">
+		update t_customerinfo
+		set delFlag = 0
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+		
+	<!-- 修改信息 -->
+	<update id="updateByid" parameterType="com.sojson.common.model.CustomerInfo">
+		update t_customerinfo
+		<set>
+			<if test="workUnit != null">
+				workUnit =#{workUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="customType != null">
+				customType = #{customType,jdbcType=BIGINT},
+			</if>
+			<if test="industry != null">
+				industry = #{industry,jdbcType=BIGINT},
+			</if>
+			<if test="customState != null">
+				customState = #{customState,jdbcType=BIGINT},
+			</if>
+			<if test="customFrom != null">
+				customFrom = #{customFrom,jdbcType=BIGINT},
+			</if>
+			<if test="customCity != null">
+				customCity = #{customCity,jdbcType=BIGINT},
+			</if>
+			<if test="ascription != null">
+				ascription = #{ascription,jdbcType=VARCHAR},
+			</if>
+			<if test="ascription != null">
+				ascriptionTime = now(),
+			</if>
+			<if test="customId != null">
+				customId = #{customId,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address=#{address,jdbcType=VARCHAR},
+			</if>	
+			<if test="workPhone != null">
+				workPhone=#{workPhone,jdbcType=BIGINT},
+			</if>	
+			<if test="summary != null">
+				summary=#{summary,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<!-- 新增客户数据 -->
+	<insert id="addCustomer" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.sojson.common.model.CustomerInfo">	
+		insert into t_customerinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="addPeople != null">
+				addPeople,
+			</if>
+			<if test="workUnit != null">
+				workUnit,
+			</if>
+			<if test="customType != null">
+				customType,
+			</if>
+			<if test="industry != null">
+				industry,
+			</if>
+			<if test="customState != null">
+				customState,
+			</if>
+			<if test="customFrom != null">
+				customFrom,
+			</if>
+			<if test="customCity != null">
+				customCity,
+			</if>
+			<if test="ascription != null">
+				ascription,
+			</if>
+			<if test="customId != null">
+				customId,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="workPhone != null">
+				workPhone,
+			</if>	
+			<if test="summary != null">
+				summary,
+			</if>	
+			
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="addPeople != null">
+				#{addPeople,jdbcType=BIGINT},
+			</if>
+			<if test="workUnit != null">
+				#{workUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="customType != null">
+				#{customType,jdbcType=BIGINT},
+			</if>
+			<if test="industry != null">
+				#{industry,jdbcType=BIGINT},
+			</if>
+			<if test="customState != null">
+				#{customState,jdbcType=BIGINT},
+			</if>
+			<if test="customFrom != null">
+				#{customFrom,jdbcType=BIGINT},
+			</if>
+			<if test="customCity != null">
+				#{customCity,jdbcType=BIGINT},
+			</if>
+			<if test="ascription != null">
+				#{ascription,jdbcType=VARCHAR},
+			</if>
+			<if test="customId != null">
+				#{customId,jdbcType=VARCHAR},
+			</if>	
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>	
+			<if test="workPhone != null">
+				#{workPhone,jdbcType=BIGINT},
+			</if>	
+			<if test="summary != null">
+				#{summary,jdbcType=VARCHAR},
+			</if>							
+		</trim>
+	</insert>
+
+	<!-- 根据id释放 -->
+	<update id="releaseCustomer" parameterType="java.lang.Long">
+		update t_customerinfo
+		set ascription = null,
+		ascriptionTime = null
+		where id =#{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 分派客户（划归名下）-->
+	<update id="updateDistributionCustomer" parameterType="com.sojson.common.model.CustomerInfo">
+			update t_customerinfo	
+			set ascriptionTime=now(),
+			<if test="ascription != null">
+				ascription =#{ascription,jdbcType=VARCHAR}
+			</if>
+			where id =#{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 客户管理模块，查询customer表所有数据   by chendf 2017/1/3  -->
+	<select id="findCustomerManage" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from t_customerinfo where 1=1
+		and delFlag = 1
+		<if test="workUnit != null and workUnit !='' " >
+        and workUnit like CONCAT("%",#{workUnit,jdbcType=VARCHAR},"%")
+	    </if>
+	    <if test="customType != null and customType !='' " >
+	        and customType = #{customType,jdbcType=BIGINT}
+	    </if>
+	    <if test="industry != null and industry !='' " >
+	        and industry = #{industry,jdbcType=BIGINT}
+	    </if>
+	    <if test="customState != null and customState !='' " >
+	        and customState = #{customState,jdbcType=BIGINT}
+	    </if>
+	    order by workUnit asc
+	</select>
+	
+	<!-- 查询id最大值 -->
+	<select id = "selectMaxId" resultType="java.lang.Long">
+		select max(id) as id from t_customerInfo
+	</select>
+	
+	<!-- 客户公司名称下拉框 -->
+	<select id="findWorkUnit" resultType="com.sojson.customerInfo.bo.CustomerInfoBo">
+		select workUnit,id
+		from t_customerInfo
+	</select>
+</mapper>

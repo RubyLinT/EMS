@@ -1,0 +1,112 @@
+[{
+	"dicName":"客户类型",
+	"dicId":"yhlx1",
+	"higherId":1,
+	"dicTitle":"潜在客户",
+	"orderNum":1
+},
+{
+	"dicName":"客户类型2",
+	"dicId":"yhlx",
+	"higherId":2,
+	"dicTitle":"潜在客户",
+	"orderNum":2
+},
+{
+	"dicName":"客户类型3",
+	"dicId":"yhlx",
+	"higherId":3,
+	"dicTitle":"潜在客户",
+	"orderNum":3
+},
+{
+	"dicName":"客户类型4",
+	"dicId":"yhlx",
+	"higherId":4,
+	"dicTitle":"潜在客户",
+	"orderNum":4
+},
+{
+	"dicName":"客户类型5",
+	"dicId":"yhlx",
+	"higherId":5,
+	"dicTitle":"潜在客户",
+	"orderNum":5
+},
+{
+	"dicName":"客户类型",
+	"dicId":"yhlx2",
+	"higherId":1,
+	"dicTitle":"潜在客户",
+	"orderNum":1
+},
+{
+	"dicName":"客户类型2",
+	"dicId":"yhlx",
+	"higherId":2,
+	"dicTitle":"潜在客户",
+	"orderNum":2
+},
+{
+	"dicName":"客户类型3",
+	"dicId":"yhlx",
+	"higherId":3,
+	"dicTitle":"潜在客户",
+	"orderNum":3
+},
+{
+	"dicName":"客户类型4",
+	"dicId":"yhlx",
+	"higherId":4,
+	"dicTitle":"潜在客户",
+	"orderNum":4
+},
+{
+	"dicName":"客户类型5",
+	"dicId":"yhlx",
+	"higherId":5,
+	"dicTitle":"潜在客户",
+	"orderNum":5
+},
+{
+	"dicName":"客户类型",
+	"dicId":"yhlx3",
+	"higherId":1,
+	"dicTitle":"潜在客户",
+	"orderNum":1
+},
+{
+	"dicName":"客户类型2",
+	"dicId":"yhlx",
+	"higherId":2,
+	"dicTitle":"潜在客户",
+	"orderNum":2
+},
+{
+	"dicName":"客户类型3",
+	"dicId":"yhlx",
+	"higherId":3,
+	"dicTitle":"潜在客户",
+	"orderNum":3
+},
+{
+	"dicName":"客户类型4",
+	"dicId":"yhlx",
+	"higherId":4,
+	"dicTitle":"潜在客户",
+	"orderNum":4
+},
+{
+	"dicName":"客户类型5",
+	"dicId":"yhlx",
+	"higherId":5,
+	"dicTitle":"潜在客户",
+	"orderNum":5
+},
+{
+	"dicName":"客户类型5",
+	"dicId":"yhlx5",
+	"higherId":5,
+	"dicTitle":"潜在客户",
+	"orderNum":5
+}]

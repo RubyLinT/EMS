@@ -1,0 +1,48 @@
+@charset "utf-8";
+.ztree * {
+	font-size: 12px;
+	font-weight: 100;
+	font-family: "Microsoft Yahei",Verdana,Simsun,"Segoe UI Web Light","Segoe UI Light","Segoe UI Web Regular","Segoe UI","Segoe UI Symbol","Helvetica Neue",Arial;
+}
+.ztree li {
+	line-height:30px;
+	background-color:#F5F5F5;
+}
+.ztree li ul{
+	background:#FFF;
+}
+.ztree li ul li{
+	background:#FFF;
+}
+.ztree li ul li:hover{
+	background:#F5F5F5;
+}
+.ztree li a.curSelectedNode {
+	text-decoration: none;
+	border: 0;
+}
+.ztree li a{
+	height:100% !important;
+}
+.ztree li a a{
+	color:#337ab7;
+	margin:0 0 0 5px;
+}
+.ztree li a:hover {
+	color:#45a9ff;
+	text-decoration: none;
+}
+.ztree li a.level0 span {
+	font-size: 22px;
+}
+.ztree li a.level1 span {
+	font-size: 16px;
+}
+.ztree li a.level2 span {
+	font-size: 14px;
+}
+.ztree li a.level0 {
+	height:40px;
+	line-height: 40px;
+}
+.ztree li a.curSelectedNode {background-color:transparent;width:calc(100% - 18px);}

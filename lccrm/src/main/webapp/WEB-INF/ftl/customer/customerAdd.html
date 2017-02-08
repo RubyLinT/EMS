@@ -1,0 +1,62 @@
+<div class="container col-xs-12">
+    <!-- 标题区 -->
+    <h1 class="page-header">新建客户</h1>
+    <!-- 表单区 -->
+    <form class="form-horizontal" role="form" ng-controller="dicController">        
+        <div class="form-group"> 
+            <label for="dicId" class="col-sm-2 control-label">*NO:</label>
+            <div class="col-sm-7">
+                <input type="text" id="dicId" ng-model="dicId" class="form-control" placeholder="请输入字典NO">
+            </div>
+        </div>  
+        <div class="form-group"> 
+            <label for="dicName" class="col-sm-2 control-label">*单位名称:</label>
+            <div class="col-sm-7">
+                <input type="text" id="dicName" ng-model="dicName" class="form-control" placeholder="请输入单位名称">
+            </div>
+        </div>  
+        <div class="form-group"> 
+            <label for="higherId" class="col-sm-2 control-label">类型:</label>
+            <div class="col-sm-7">
+                <input type="text" id="higherId" ng-model="higherId" class="form-control" list="datalist1" placeholder="请输入类型">
+                <datalist id="datalist1">
+                    <option value="a" label="a"></option>
+                    <option value="b" label="b"></option>
+                    <option value="c" label="c"></option>
+                    <option value="d" label="d"></option>
+                </datalist>
+            </div>
+        </div>       
+        <div class="form-group"> 
+            <label for="dicTitle" class="col-sm-2 control-label">*行业:</label>
+            <div class="col-sm-7">
+                <input type="text" id="dicTitle" ng-model="dicTitle" class="form-control" placeholder="请输入行业">
+            </div>
+        </div>  
+        <div class="form-group"> 
+            <label for="orderNum" class="col-sm-2 control-label">状态:</label>
+            <div class="col-sm-7">
+                <input type="text" id="orderNum" ng-model="orderNum" class="form-control" placeholder="请输入状态">
+            </div>
+        </div>  
+        <div class="form-group"> 
+            <label for="orderNum" class="col-sm-2 control-label">所在城市:</label>
+            <div class="col-sm-7">
+                <input type="text" id="orderNum" ng-model="orderNum" class="form-control" placeholder="请输入所在城市">
+            </div>
+        </div>    
+        <div class="form-group"> 
+            <label for="orderNum" class="col-sm-2 control-label">客户来源:</label>
+            <div class="col-sm-7">
+                <input type="text" id="orderNum" ng-model="orderNum" class="form-control" placeholder="请输入客户来源">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <a ui-sref="customer" class="btn btn-success">关闭</a>
+                <button type="button" class="btn btn-success">保存</button>
+            </div>
+        </div>         
+    </form>
+</div>
+	 

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sojson.common.dao.DictionaryMapper" >
+  <resultMap id="BaseResultMap" type="com.sojson.common.model.Dictionary" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="dicId" property="dicId" jdbcType="VARCHAR" />
+    <result column="higherId" property="higherId" jdbcType="BIGINT" />
+    <result column="dicName" property="dicName" jdbcType="VARCHAR" />
+    <result column="dicTitle" property="dicTitle" jdbcType="VARCHAR" />
+    <result column="orderNum" property="orderNum" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 查询dicId -->
+  <select id="findAllDicId" resultType="java.lang.String">
+  	select DISTINCT(dicId) from t_dictionary 
+  	where 1=1
+  	<if test="dicId != null and dicId !='' " >
+        and dicId like CONCAT("%",#{dicId,jdbcType=VARCHAR},"%")</if>
+  </select>
+  
+  <!-- 查询dicTitle -->
+  <select id="findAllDicTitle" resultType="java.lang.String">
+  	select dicTitle from t_dictionary
+  	where dicId = #{dicId,jdbcType=VARCHAR}
+  </select>
+  
+  <sql id="Base_Column_List" >
+    id, dicId, higherId, dicName, dicTitle, orderNum
+  </sql>
+  
+  <sql id="limit_sql">
+  	   <if test="page_sql != null and page_sql != ''">
+      	${page_sql}
+      </if>
+  </sql>
+  
+  <sql id="where_all">
+  	<where>
+  	  <if test="findContent != null and findContent !='' " >
+        and (
+        LOWER(dicId) like  LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")) or
+        LOWER(dicName) like  LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%"))
+        )
+      </if>
+    </where>
+  </sql>
+  
+  <!-- 分页查询字典表的全部数据 -->
+  <select id="findAll" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from t_dictionary 
+    <include refid="where_all"/>
+    <include refid="limit_sql" />
+  </select>
+  
+  <!-- 查询数量 -->
+  <select id="findCount" resultMap="BaseResultMap" >
+ 	 select count(id) from  t_dictionary
+  	<include refid="where_all" />
+  </select>
+  
+  <!-- 根据字典Id查询 -->
+  <select id="findDic" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from t_dictionary
+    where 1=1
+    <if test="dicId != null and dicId !='' " >
+        and dicId = #{dicId,jdbcType=VARCHAR}
+    </if>
+    
+    <if test="dicName != null and dicName !='' " >
+        and LOWER(dicName) like  LOWER(CONCAT("%",#{dicName,jdbcType=VARCHAR},"%"))
+    </if>
+    order by orderNum asc
+  </select>
+  
+  <!-- 查询dicId的主键 -->
+  <select id="findPrimaryKey" resultType="java.lang.Long">
+  	select id from t_dictionary 
+  	where 1=1
+  		and dicId = #{higherDicId,jdbcType=VARCHAR} 
+  		and dicTitle = #{higherDicTitle,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 根据higherId查询dicId,dicTitle -->
+  <select id="findByHigherId" resultType="com.sojson.systemControl.bo.DictionaryBo">
+  	select dicId as higherDicId, dicTitle as higherDicTitle from t_dictionary 
+  	where 1=1
+  		and higherId = #{higherId,jdbcType=BIGINT}
+  		and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_dictionary
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 根据主键删除字典表的数据 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_dictionary
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.sojson.common.model.Dictionary" >
+    insert into t_dictionary (id, dicId, higherId, 
+      dicName, dicTitle, orderNum
+      )
+    values (#{id,jdbcType=BIGINT}, #{dicId,jdbcType=VARCHAR}, #{higherId,jdbcType=BIGINT}, 
+      #{dicName,jdbcType=VARCHAR}, #{dicTitle,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER}
+      )
+  </insert>
+  
+  <!-- 新增字典数据 -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.sojson.common.model.Dictionary" >
+    insert into t_dictionary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dicId != null" >
+        dicId,
+      </if>
+      <if test="higherId != null" >
+        higherId,
+      </if>
+      <if test="dicName != null" >
+        dicName,
+      </if>
+      <if test="dicTitle != null" >
+        dicTitle,
+      </if>
+      <if test="orderNum != null" >
+        orderNum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dicId != null" >
+        #{dicId,jdbcType=VARCHAR},
+      </if>
+      <if test="higherId != null" >
+        #{higherId,jdbcType=BIGINT},
+      </if>
+      <if test="dicName != null" >
+        #{dicName,jdbcType=VARCHAR},
+      </if>
+      <if test="dicTitle != null" >
+        #{dicTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER}
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 修改字典表 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.sojson.common.model.Dictionary" >
+    update t_dictionary
+    <set >
+      <if test="dicId != null" >
+        dicId = #{dicId,jdbcType=VARCHAR},
+      </if>
+      <if test="higherId != null" >
+        higherId = #{higherId,jdbcType=BIGINT},
+      </if>
+      <if test="dicName != null" >
+        dicName = #{dicName,jdbcType=VARCHAR},
+      </if>
+      <if test="dicTitle != null" >
+        dicTitle = #{dicTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        orderNum = #{orderNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sojson.common.model.Dictionary" >
+    update t_dictionary
+    set dicId = #{dicId,jdbcType=VARCHAR},
+      higherId = #{higherId,jdbcType=BIGINT},
+      dicName = #{dicName,jdbcType=VARCHAR},
+      dicTitle = #{dicTitle,jdbcType=VARCHAR},
+      orderNum = #{orderNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

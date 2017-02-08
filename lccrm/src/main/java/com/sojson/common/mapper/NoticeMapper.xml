@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sojson.common.dao.NoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.sojson.common.model.Notice" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="publisher" property="publisher" jdbcType="VARCHAR" />
+    <result column="publishTime" property="publishTime" jdbcType="VARCHAR" />
+    <result column="isPush" property="isPush" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, title, content, publisher, publishTime, isPush
+  </sql>
+  
+  <!-- 根据标题查询所有公告 -->
+  <select id="findAll" resultMap="BaseResultMap" >
+  	select 
+    <include refid="Base_Column_List" />
+    from t_notice
+    where 1=1
+    <if test="title != null and title !='' " >
+        and LOWER(title) like  LOWER(CONCAT("%",#{title,jdbcType=VARCHAR},"%"))</if>
+  </select>
+  
+  <!-- 根据用户Id查询数据 -->
+  <select id="findNotice" resultMap="BaseResultMap" >
+  	select tu.id, tn.title, tn.content, tn.publishTime
+    from t_usernotice tu, t_notice tn
+    where 1=1
+		and tu.noticeId = tn.id
+		and tn.isPush = 0
+  		and tu.isRead = 1
+  	<if test="userId != null and userId !='' " >
+        and tu.userId = #{userId,jdbcType=VARCHAR}</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_notice
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_notice
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.sojson.common.model.Notice" >
+    insert into t_notice (id, title, content, 
+      publisher, publishTime, isPush
+      )
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{publisher,jdbcType=VARCHAR}, #{publishTime,jdbcType=VARCHAR}, #{isPush,jdbcType=BIGINT}
+      )
+  </insert>
+  
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.sojson.common.model.Notice" >
+    insert into t_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="publisher != null" >
+        publisher,
+      </if>
+      <if test="publishTime != null" >
+        publishTime,
+      </if>
+      <if test="isPush != null" >
+        isPush,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null" >
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isPush != null" >
+        #{isPush,jdbcType=BIGINT}
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateNoticeByPrimaryKey" parameterType="com.sojson.common.model.Notice" >
+    update t_notice
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null" >
+        publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        publishTime = #{publishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isPush != null" >
+        isPush = #{isPush,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sojson.common.model.Notice" >
+    update t_notice
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      publishTime = #{publishTime,jdbcType=VARCHAR},
+      isPush = #{isPush,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

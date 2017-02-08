@@ -1,0 +1,92 @@
+<div class="container col-xs-12">
+	<!-- 查询区 -->
+	<form class="form-inline" role="form">
+    	<div class="form-group form-m" style="max-height:200px;overflow:auto;"> 
+            <label for="customId" class="Label">单位名称</label>
+            <input type="text" id="customId" name="customId" ng-focus="startFun();" ng-model="customId" class="form-control" placeholder="请输入单位名称">
+        </div>
+        <div class="form-group form-m"> 
+            <label for="ascription" class="Label">跟踪人</label>
+            <input type="text" id="ascription" ng-model="ascription" class="form-control" placeholder="请输入跟踪人">
+        </div>  
+        <div class="form-group form-m"> 
+            <label for="startTime" class="Label">起始时间</label>
+            <input type="text" id="startTime" ng-model="createStartTime" class="form-control" placeholder="请输入起始时间">
+        </div>  
+        <div class="form-group form-m"> 
+            <label for="endTime" class="Label">终止时间</label>
+            <input type="text" id="endTime" ng-model="createEndTime" class="form-control" placeholder="请输入终止时间">
+        </div> 
+        <button type="button" class="Btn" ng-click="queryFollowR(1);">查&nbsp;询</button>
+    </form>
+    <hr>
+    <!-- 操作区 -->
+    <div class="btn-wrapper">
+    	<a class="Btn" ui-sref="followRecordAdd">新建记录</a>
+    </div>
+    <div class="table-responsive">
+ 	<!-- 表格区 -->
+ 	<table class="table table-striped table-bordered" id="table1">
+ 		<!-- 标题 -->
+ 		<thead>
+            <tr class="header-tr">
+           	 	<th id="all"><input type="checkbox" name="select"></th>
+            	<th>No</th>
+            	<th ng-click="cusidFChange();">单位名称<span class="glyphicon glyphicon-chevron-down spanfont" id="cusidF"></span></th>
+            	<th ng-click="ascriptionFChange();">跟踪人<span class="glyphicon glyphicon-chevron-down spanfont" id="ascriptionF"></span></th>
+            	<th ng-click="recordTimeFChange();">记录时间<span class="glyphicon glyphicon-chevron-down spanfont" id="recordTimeF"></span></th>
+            	<th ng-click="contactIdFChange();">联系人<span class="glyphicon glyphicon-chevron-down spanfont" id="contactIdF"></span></th>
+            	<th>跟进内容</th>
+            	<th>附件</th>
+            	<th>预计下次跟进时间</th>
+            	<th>预计跟进内容</th>
+            </tr>
+        </thead>
+        <!-- 内容 -->
+        <tbody id="tbody"></tbody>
+ 	</table>
+ 	</div>
+ 	<!-- 分页 -->
+ 	<nav>
+        <ul class="pagination">
+            <li>
+                <a href="javascript:;" id="firstBtn" ng-click="queryFollowR(1);"> 首页</a>
+            </li>
+            <li>
+                <a href="javascript:;" id="prevBtn" ng-click="prevBtnQueryFol();">上页</a>
+            </li>  
+            <!-- 循环生成页码 -->     
+            <li ng-repeat="i in pageBtns" ng-class="{active:currPage==i}">
+                <a href="javascript:;" ng-click="queryFollowR(i);">{{i}}</a>
+            </li>               
+            <li>
+                <a href="javascript:;" id="nextBtn" ng-click="nextBtnQueryFol();">下页</a>
+            </li>
+            <li>
+                <a href="javascript:;" id="lastBtn" ng-click="queryFollowR(pagerCount);">末页</a>
+            </li>
+            <ul class="pagination" id="pagination">
+            	<!-- 第几页/共几页 -->
+            	<li>
+                	<a id="pagerInfo">共{{totle}}条记录,第{{currPage}}/{{pagerCount}}页,每页数据:</a>
+            	</li>
+            	<!-- 每页数据量 -->
+            	<li>
+            		<a id="sizeBtn">
+               	 		<select ng-model="pagerSize" ng-click="queryFollowR(1);">
+            				<option>5</option>
+               	 			<option>10</option>
+                			<option>15</option>
+            			</select>
+            		</a>            	
+            	</li>
+            	<!-- 跳转的页码 -->
+            	<li>
+	                <a id="goBtn">
+	                   	 第<input type="text" size="2" ng-model="goPage">页<a ng-click="goQueryFol(goPage);" id="go">跳转</a>
+               	 	</a>
+            	</li>
+       		</ul>
+        </ul>
+    </nav> 
+</div>

@@ -1,0 +1,50 @@
+<div class="container col-xs-12" ng-controller="dicController">
+	<!-- 标题区 -->
+	<h1  class="page-header">字典检索</h1>
+	<!-- 查询区 -->
+	<form class="form-inline" role="form">
+    	<div class="form-group"> 
+            <label for="dicName">字典名称</label>
+            <input type="text" id="dicName" class="form-control" placeholder="请输入字典名称">
+        </div>
+        
+        <div class="form-group"> 
+            <label for="dicId">字典ID</label>
+            <input type="password" id="dicId" class="form-control" placeholder="请输入字典ID">
+        </div>          
+        
+        <button type="button" class="btn btn-info">查询</button>                  
+    </form>
+    <hr>
+    <!-- 操作区 -->
+    <div class="btn-group">
+    	<a class="btn btn-info" ui-sref="dictionaryAdd">新建</a>
+    	<a class="btn btn-warning" ui-sref="dictionaryMod">修改</a>
+    	<a href="javascript:;" class="btn btn-danger" ng-click="dictionaryDel();">删除</a>
+    	<a class="btn btn-success" ui-sref="dictionaryInsert">增添内容</a>
+    </div>
+ 	<!-- 表格区 -->
+ 	<table class="table table-striped table-bordered">
+ 		<thead>
+            <tr>
+            	<th>字典名称</th>
+            	<th>字典ID</th>
+            	<th>上级ID</th>
+            	<th>字典内容</th>
+            	<th>内容序号</th>
+            </tr>
+        </thead>
+ 	</table>
+ 	<!-- 分页 -->
+ 	<nav class="col-xs-offset-4">
+    	<ul class="pagination pagination-lg">
+    		<li><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+    	</ul>
+    </nav>    
+</div>

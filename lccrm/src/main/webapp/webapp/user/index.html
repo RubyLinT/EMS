@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" ng-app="myApp" ng-controller="indexController">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="js/common/layer/skin/layer.css" id="{{baseUrl}}">
+	<link rel="stylesheet" type="text/css" href="js/common/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/common/util.css">
+	<link rel="stylesheet" type="text/css" href="css/common/index.css">
+	<script type="text/javascript" src="js/common/jquery.js"></script>
+	<script type="text/javascript" src="js/common/layer/layer.js"></script>
+	<script type="text/javascript" src="js/common/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/common/angular.js"></script>
+	<script type="text/javascript" src="js/common/angular-ui-router.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/indexController.js"></script>
+	<script type="text/javascript" src="js/system/dicController.js"></script>
+	<script type="text/javascript" src="js/system/dicService.js"></script>
+	<script type="text/javascript" src="js/customer/cusService.js"></script>
+	<script type="text/javascript" src="js/customer/cusController.js"></script>
+	<script type="text/javascript" src="js/customer/userController.js"></script>
+</head>
+<body >
+	<!-- 头部区 -->
+	<nav class="navbar navbar-fixed-top navbar-inverse header" role="navigation">
+		<!-- 操作区 -->
+		<div class="container-fluid">
+			<!-- 列表 -->
+			<div class="navbar-header">
+				<!-- 标题 -->
+				<h3 class="list-header">立创客户关系管理系统</h3>
+				<!-- 缩小到一定范围内显示的按钮 -->
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<!-- 按钮 -->
+			<div id="navbar" class="navbar-collapse collapse">
+				<form class="navbar-form navbar-right" role="form">
+					<div class="form-group">												
+						<span class="line">欢迎您，管理员&nbsp;张三</span>
+						<a ui-sref="userMod" class="Btn-mini">修改密码</a>
+						<a ui-sref="#" class="Btn-mini">退出登录</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</nav>
+	<div class="bar"><span class="glyphicon glyphicon-chevron-right" ng-click="navShow();"></span></div>
+	<!-- 侧边栏 -->
+	<div class="container-fluid" ng-controller="indexController">
+		<div class="col-xs-2 sidebar-offcanvas" id="aside" role="navigation">
+			<div id="sidebar" class="list-group">
+				<!-- 折叠按钮 -->
+				<div class="title"><span class="glyphicon glyphicon-chevron-right" ng-click="navHide();"></span></div>
+				<!-- 链接 -->
+				<a class="list-group-item" ui-sref="home"><span class="glyphicon glyphicon-pencil icon"></span>客户管理</a>
+				<a class="list-group-item" ui-sref="customer"><span class="glyphicon glyphicon-user icon"></span>我的客户</a>
+				<a class="list-group-item" ui-sref="home"><span class="glyphicon glyphicon-th icon"></span>客户公海</a>
+				<a class="list-group-item" ui-sref="home"><span class="glyphicon glyphicon-refresh icon"></span>跟进记录</a>
+				<a class="list-group-item" ui-sref="home"><span class="glyphicon glyphicon-list-alt icon"></span>产品管理</a>
+				<a class="list-group-item" ui-sref="home"><span class="glyphicon glyphicon-barcode icon"></span>订单管理</a>
+				<a class="list-group-item hl" ui-sref="dictionary"><span class="glyphicon glyphicon-book icon"></span>数据字典</a>
+				<a class="list-group-item" ui-sref="home"><span class="glyphicon glyphicon-star icon"></span>用户管理</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- 主内容区 -->
+	<div class="col-lg-11 col-md-11 col-xs-10 mainView" ui-view></div>
+</body>
+</html>

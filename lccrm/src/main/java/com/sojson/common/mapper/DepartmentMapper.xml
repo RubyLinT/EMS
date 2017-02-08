@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sojson.common.dao.DepartmentMapper">
+	<resultMap id="BaseResultMap" type="com.sojson.common.model.Department">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="departName" property="departName" jdbcType="VARCHAR" />
+		<result column="higherDepartId" property="higherDepartId" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,departName,higherDepartId,remark
+	</sql>
+
+	<!-- 查询部门表全部数据 by chendf 2017/1/9 -->
+	<select id="findAll" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from t_department 
+	</select>
+
+	<!-- 根据id查询数据 by chendf 2017/1/9 -->
+	<select id="findById" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from t_department 
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<!-- 根据id删除数据 by chendf 2017/1/9 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+	    delete from t_department
+	    where id = #{id,jdbcType=BIGINT}
+  	</delete>
+	
+	<!-- 修改信息 by chendf 2017/1/9 -->
+	<update id="update" parameterType="com.sojson.common.model.Department">
+		update t_department
+		<set>
+			<if test="departName != null">
+				departName =#{departName,jdbcType=VARCHAR},
+			</if>
+			<if test="higherDepartId != null">
+				higherDepartId = #{higherDepartId,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<!-- 新增部门表数据 by chendf 2017/1/9 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.sojson.common.model.Department">	
+		insert into t_department
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="departName != null">
+				departName,
+			</if>
+			<if test="higherDepartId != null">
+				higherDepartId,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="departName != null">
+				#{departName,jdbcType=VARCHAR},
+			</if>
+			<if test="higherDepartId != null">
+				#{higherDepartId,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>

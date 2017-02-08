@@ -1,0 +1,142 @@
+@charset "utf-8";
+/*统一设置*/
+* {
+	margin: 0;
+	padding: 0;
+	letter-spacing: 2px;
+}
+html,body,h3,h4 {
+	height: 100%;
+	font-family:'微软雅黑';
+	font-weight: 700;
+}
+a:hover {
+	cursor: pointer;
+}
+.highlight {
+	background:#2F87C1;
+}
+/*标题样式*/
+.header-span{
+	font-weight:100;
+	margin-bottom:50px;
+	border-bottom:1px solid #B2B2B2;
+	padding-bottom:5px;
+}
+/*按钮样式*/
+.btn-wrapper {
+	margin-bottom:5px;
+}
+#sizeBtn {
+	padding: 0px;
+	padding-top:3px;
+	height: 34px;
+	width:55px;
+	border:0;
+}
+#pagerInfo {
+	border:0;
+}
+#sizeBtn,#pagerInfo,#goBtn:hover {
+	background: #fff;
+}
+#sizeBtn select {
+	height: 28px;
+}
+#goBtn {
+	padding: 0px 12px;
+	padding-top:1px;
+	height: 33px;
+	border:0;
+}
+#goBtn input {
+	height: 33px;
+}
+#go {
+	width:40px;
+	padding:0;
+	height: 34px;
+	line-height:34px;
+	text-align:center;
+}
+.Btn {
+	display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color:#fff;
+    background-color: #5BC0DE;
+    width:75px;
+}
+.Btn:hover {
+	color: #fff;
+    background-color: #31b0d5;
+    border-color: #269abc;
+}
+.Btn-mini {
+	font-weight: 400;
+	display: inline-block;
+    margin-bottom: 0;
+    line-height: 34px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color:#fff;
+    background-color: #5BC0DE;
+	width:75px;
+	height:36px;
+	font-size:14px;
+	padding:auto 0;
+	letter-spacing: 1px;
+}
+.Btn-mini:hover {
+	color: #fff;
+    background-color: #31b0d5;
+    border-color: #269abc;
+}
+#all:hover {
+	cursor: pointer;
+}
+#all2:hover {
+	cursor: pointer;
+}
+#pagination {
+	border:0;
+	margin:0;
+	height:34px;
+}
+/*表单样式*/
+.form-m {
+	margin-right:20px;
+	margin-bottom:10px;
+}
+/*单元格样式*/
+.short {
+	width:70px;
+	text-align:center;
+}
+/*表格*/
+.header-tr th{
+	cursor: pointer;
+	background:#2D313D !important;
+	color:#fff;
+	text-align:center !important; 
+}
+.body-tr th{
+	font-weight: 100 !important; 
+}

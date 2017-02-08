@@ -1,0 +1,75 @@
+<div class="container col-xs-12 container-down">
+	<div id="menuContent" class="menuContent">
+		<ul id="treeDemo" class="ztree"></ul>
+	</div>
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   		<div class="modal-dialog">
+	    	<div class="modal-content">
+	        	<div class="modal-header">
+	            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	            	<h4 class="modal-title" id="myModalLabel">添加子集</h4>
+	        	</div>
+	        	<div class="modal-body"> 
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-md-3 text-right">上级部门:</div>
+	          	        <div class="col-md-8" id="higherDepartName"></div>
+	          	        <div id="higherDepartId" ng-hide="1"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 text-right">部门名称:</div>
+                        <div class="col-md-8 form-group">
+	          	        	<input type="text" id="departName" class="form-control" placeholder="请输入类别名称">
+	          	        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 text-right">备注:</div>
+                        <div class="col-md-8 form-group">
+	          	        	<input type="text" id="Remark" class="form-control" placeholder="请输入备注">
+	          	        </div>
+                    </div>
+	        	</div>
+	        	<div class="modal-footer">
+	            	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	            	<button type="button" class="btn btn-info" ng-click="addNode();">保存</button>
+	        	</div>
+	    	</div>
+		</div>
+	</div>
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModalMod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   		<div class="modal-dialog">
+	    	<div class="modal-content">
+	        	<div class="modal-header">
+	            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	            	<h4 class="modal-title" id="myModalLabel">修改</h4>
+	        	</div>
+	        	<div class="modal-body"> 
+                    <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-md-3 text-right">上级部门:</div>
+                        <div class="col-md-8" id="higherDepartNameM"></div>
+	          	        <div id="idM" ng-hide="1"></div>
+	          	        <div id="higherDepartIdM" ng-hide="1"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 text-right">部门名称:</div>
+                        <div class="col-md-8 form-group">
+	          	        	<input type="text" id="departNameM" class="form-control" placeholder="请输入类别名称">
+	          	        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 text-right">备注:</div>
+                        <div class="col-md-8 form-group">
+	          	        	<input type="text" id="RemarkM" class="form-control" placeholder="请输入备注">
+	          	        </div>
+                    </div>
+	        	</div>
+	        	<div class="modal-footer">
+	            	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	            	<button type="button" class="btn btn-info" ng-click="modNode();">保存</button>
+	        	</div>
+	    	</div>
+		</div>
+	</div>
+</div>
+	

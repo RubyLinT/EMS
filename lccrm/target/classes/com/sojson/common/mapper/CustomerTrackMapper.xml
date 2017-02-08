@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sojson.common.dao.CustomerTrackMapper">
+	<resultMap id="BaseResultMap" type="com.sojson.common.model.CustomerTrack">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="customId" property="customId" jdbcType="VARCHAR" />
+		<result column="ascription" property="ascription" jdbcType="VARCHAR" />
+		<result column="recordTime" property="recordTime" jdbcType="DATE" />
+		<result column="contactId" property="contactId" jdbcType="BIGINT" />
+		<result column="trackContent" property="trackContent" jdbcType="VARCHAR" />
+		<result column="trackFile" property="trackFile" jdbcType="VARCHAR" />
+		<result column="nextTrackDate" property="nextTrackDate"
+			jdbcType="VARCHAR" />
+		<result column="nextComtent" property="nextComtent" jdbcType="VARCHAR" />
+		<result column="reminderDate" property="reminderDate" jdbcType="BIGINT" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,customId,ascription,recordTime,contactId,trackContent,trackFile,nextTrackDate,nextComtent,reminderDate
+	</sql>
+
+	<!-- 根据查询 条件查询基础列表 -->
+	<select id="findCustomerTrack" resultMap="BaseResultMap">
+		select
+		tt.id,tt.customId,tt.ascription,tt.recordTime,tt.contactId,tt.trackContent,tt.trackFile,tt.nextTrackDate,tt.nextComtent,tt.reminderDate
+		from t_tracking tt, t_customerinfo tc, u_user uu
+		where 1=1
+		and
+		tt.customId=tc.customId
+		and uu.email = tt.ascription
+		and  tc.delFlag=1
+		<if test="customId != null and customId !='' ">
+		and tt.customId = #{customId,jdbcType=VARCHAR}
+		</if>
+		<if test="ascription != null and ascription !='' ">
+		and uu.nickname like CONCAT("%",#{ascription,jdbcType=VARCHAR},"%")
+		</if>
+		<if test="createStartTime != null and createStartTime!=''">
+		and tt.recordTime &gt;= #{createStartTime, jdbcType=TIMESTAMP}
+		</if>
+		<if test="createEndTime != null and createEndTime!=''">
+		and tt.recordTime &lt;= #{createEndTime, jdbcType=TIMESTAMP}
+		</if>
+	</select>
+	<!-- 根据联系人ID取联系人名称 -->
+	<select id="findContacById" resultType="com.sojson.customerTrack.bo.CustomerTrackBo">
+		select tc.linkMan
+		from t_contactInfo tc,t_tracking tt
+		where tc.id=tt.contactId and 
+		tt.id=
+		#{id,jdbcType=VARCHAR}
+	</select>
+	<!-- 根据客户ID取公司名称 -->
+	<select id="findworkUnitById" resultType="com.sojson.customerTrack.bo.CustomerTrackBo">
+		select
+		tc.workUnit,tc.customId
+		from t_tracking tt, t_customerinfo tc
+		where
+		tc.customId=tt.customId and tt.id = #{id,jdbcType=BIGINT}
+	</select>
+	<!-- 根据customeId取跟踪记录 -->
+	<select id="findTrackBycustomId" resultType="com.sojson.customerTrack.bo.CustomerTrackBo">
+		select
+		trackContent,trackFile,nextTrackDate,nextComtent,reminderDate,recordTime
+		from t_tracking
+		where customId = #{customId,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 根据id查询跟进人(ascription)的昵称 by chendf 2017/1/20 -->
+	<select id="findAscriptionByid" resultType="com.sojson.customerTrack.bo.CustomerTrackBo">
+		select u.nickname as
+		ascription
+		from u_user u, t_tracking tc
+		where u.email = tc.ascription and tc.id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<!-- 新增跟进记录 -->
+	<insert id="addTrack" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.sojson.customerTrack.bo.CustomerTrackBo">
+		insert into t_tracking
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="customId != null">
+				customId,
+			</if>
+			<if test="ascription != null">
+				ascription,
+			</if>
+			<if test="recordTime != null">
+				recordTime,
+			</if>
+			<if test="contactId != null">
+				contactId,
+			</if>
+			<if test="trackContent != null">
+				trackContent,
+			</if>
+			<if test="trackFile != null">
+				trackFile,
+			</if>
+			<if test="nextTrackDate != null">
+				nextTrackDate,
+			</if>
+			<if test="nextComtent != null">
+				nextComtent,
+			</if>
+			<if test="reminderDate != null">
+				reminderDate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="customId != null">
+				#{customId,jdbcType=VARCHAR},
+			</if>
+			<if test="ascription != null">
+				#{ascription,jdbcType=VARCHAR},
+			</if>
+			<if test="recordTime != null">
+				#{recordTime,jdbcType=DATE},
+			</if>
+			<if test="contactId != null">
+				#{contactId,jdbcType=BIGINT},
+			</if>
+			<if test="trackContent != null">
+				#{trackContent,jdbcType=VARCHAR},
+			</if>
+			<if test="trackFile != null">
+				#{trackFile,jdbcType=VARCHAR},
+			</if>
+			<if test="nextTrackDate != null">
+				#{nextTrackDate,jdbcType=VARCHAR},
+			</if>
+			<if test="nextComtent != null">
+				#{nextComtent,jdbcType=VARCHAR},
+			</if>
+			<if test="reminderDate != null">
+				#{reminderDate,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 联系人下拉框 -->
+	<select id="findContactInfo" resultType="com.sojson.customerTrack.bo.CustomerTrackBo">
+		select id,linkMan
+		from t_contactInfo
+		where 1=1
+		<if test="linkMan != null and linkMan !=''">
+			and linkMan like CONCAT("%",#{linkMan,jdbcType=VARCHAR},"%")
+		</if>
+	</select>
+
+	<!-- 根据id删除跟进记录 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from t_tracking
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+
+</mapper>

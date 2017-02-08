@@ -1,0 +1,48 @@
+<div class="container col-xs-12 container-down">
+    <!-- 表单区 -->
+    <form class="form-horizontal" role="form">
+    	<!-- 字典ID -->        
+        <div class="form-group"> 
+            <label for="dicId" class="col-sm-3 control-label"><span class="color">*</span>字典ID:</label>
+            <div class="col-sm-7">
+                <input type="text" id="dicId" ng-model="dicId" class="form-control" placeholder="请输入字典ID" disabled>
+            </div>
+        </div>  
+        <!-- 字典名称 -->
+        <div class="form-group"> 
+            <label for="dicName" class="col-sm-3 control-label"><span class="color">*</span>字典名称:</label>
+            <div class="col-sm-7">
+                <input type="text" id="dicName" ng-model="dicName" class="form-control" placeholder="请输入字典名称" disabled>
+            </div>
+        </div>  
+        <!-- 上级ID -->
+        <div class="form-group"> 
+            <label for="higherDicId" class="col-sm-3 control-label">上级ID:</label>
+            <div class="col-sm-7">
+                <input type="text" id="higherDicId" ng-model="higherDicId" class="form-control" placeholder="请输入上级ID" disabled>
+            </div>
+        </div>
+        <!-- 字典内容 -->       
+        <div class="form-group"> 
+            <label for="dicTitle" class="col-sm-3 control-label"><span class="color">*</span>字典内容:</label>
+            <div class="col-sm-7">
+                <input type="text" id="dicTitle" ng-model="dicTitle" class="form-control" placeholder="请输入字典内容">
+            </div>
+        </div> 
+        <!-- 排序 --> 
+        <div class="form-group"> 
+            <label for="orderNum" class="col-sm-3 control-label">排序:</label>
+            <div class="col-sm-7">
+                <input type="text" id="orderNum" ng-model="orderNum" class="form-control" placeholder="请输入排序">
+            </div>
+        </div>     
+        <!-- 操作按钮 --> 
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <a ui-sref="dictionary" class="btn btn-default">返回</a>
+                <button type="button" class="btn btn-info" ng-click="insertDic();">保存</button>
+            </div>
+        </div>         
+    </form>
+</div>
+	 

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<!-- 视口设置 -->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>立创客户关系管理系统</title>
+	<link rel="stylesheet" type="text/css" href="css/common/jquery.alertable.css">
+	<link rel="stylesheet" type="text/css" href="js/common/layer/skin/layer.css">
+	<link rel="stylesheet" type="text/css" href="js/common/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="js/common/zTree/css/zTreeStyle.css" type="text/css">
+	<link rel="stylesheet" type="text/css" href="css/common/util.css">
+	<link rel="stylesheet" type="text/css" href="css/common/index.css">
+	<link rel="stylesheet" type="text/css" href="css/common/zTree.css">
+	<link rel="stylesheet" href="css/common/iconfont/style.css">
+	<link rel="stylesheet" href="css/common/jquery.datetimepicker.css">
+	<link rel="stylesheet" href="js/common/kindeditor/js/kindeditor/plugins/code/prettify.css">
+	<link href="css/common/foundation-datepicker.css" rel="stylesheet" type="text/css">
+	<link rel="Stylesheet" href="css/common/jquery.autocomplete.css" />
+	<script type="text/javascript" src="js/common/jquery.js"></script>
+	<script type="text/javascript" src="js/common/jquery.alertable.min.js"></script>
+	<script type="text/javascript" src="js/common/layer/layer.js"></script>
+	<script type="text/javascript" src="js/common/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/common/zTree/js/jquery.ztree.core.js"></script>
+	<script type="text/javascript" src="js/common/zTree/js/jquery.ztree.excheck.js"></script>
+	<script type="text/javascript" src="js/common/zTree/js/jquery.ztree.exedit.js"></script>
+	<script type="text/javascript" src="js/common/angular.js"></script>
+	<script type="text/javascript" src="js/common/angular-ui-router.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/common/jquery.datetimepicker.js"></script>
+	<script src="js/common/foundation-datepicker.js"></script>
+	<script type="text/javascript" src="js/indexController.js"></script>
+	<script type="text/javascript" src="js/system/dicController.js"></script>
+	<script type="text/javascript" src="js/system/dicService.js"></script>
+	<script type="text/javascript" src="js/customer/cusService.js"></script>
+	<script type="text/javascript" src="js/user/userService.js"></script>
+	<script type="text/javascript" src="js/customer/cusController.js"></script>
+	<script type="text/javascript" src="js/user/userController.js"></script>
+	<script type="text/javascript" src="js/employee/empController.js"></script>
+	<script type="text/javascript" src="js/employee/empService.js"></script>
+	<script type="text/javascript" src="js/department/departmentTreeController.js"></script>
+	<script type="text/javascript" src="js/common/kindeditor/js/kindeditor/kindeditor.js"></script>
+	<script charset="utf-8" src="js/common/kindeditor/js/kindeditor/plugins/code/prettify.js"></script>
+	<script type="text/javascript" src="js/common/kindeditor/js/kindeditor/zh_CN.js"></script>
+	<script type="text/javascript" src="js/followRecord/followRController.js"></script>
+	<script type="text/javascript" src="js/followRecord/followRService.js"></script>
+	<script type="text/javascript" src="js/notice/noticeController.js"></script>
+	<script type="text/javascript" src="js/notice/noticeService.js"></script>
+	<script type="text/javascript" src="js/common/jquery.autocomplete.js"></script>
+  	<script type="text/javascript" src="js/common/jquery-migrate-1.1.0.js"></script>
+</head>
+<body ng-controller="indexController">
+	<!-- 侧边栏 -->
+	<div class="container-fluid">
+		<div class="col-xs-2 sidebar-offcanvas" id="aside" role="navigation">
+			<div id="sidebar" class="list-group">
+				<!-- logo -->
+				<div class="title" ng-click="toggle();">全部分类
+					<div class="rightPosi"><span class="icon-list2"></span></div>
+				</div>
+				<!-- 链接 -->
+				<a class="list-group-item" ui-sref="customerManage" id="customerManLink"><span class="icon-user-tie icon"></span>客户管理</a>
+				<a class="list-group-item" ui-sref="customer" id="customerLink"><span class="icon-user icon"></span>我的客户</a>
+				<a class="list-group-item" ui-sref="customerHighSeas" id="customerHSeaLink"><span class="icon-users icon"></span>客户公海</a>
+				<a class="list-group-item" ui-sref="followRecord" id="followRLink"><span class="icon-file-text2 icon"></span>跟进记录</a>
+				<a class="list-group-item" ui-sref="employee" id="employeeLink"><span class="icon-profile icon"></span>员工管理</a>
+				<a class="list-group-item hl" ui-sref="dictionary" id="dictionaryLink"><span class="icon-book icon"></span>数据字典</a>
+				<a class="list-group-item" ui-sref="department" id="userManLink"><span class="icon-office icon"></span>部门管理</a>
+				<a class="list-group-item" ui-sref="notice" id="noticeLink"><span class="icon-bullhorn icon"></span>消息通知</a>
+			</div>
+		</div>
+	</div>
+	<!-- 头部标题区 -->
+	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<div class="header">
+				<img src="images/logo.png">
+			</div>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<div class="right">
+			<div class="left-box">
+				<img src="images/user.png">
+				<i>{{userName}}</i>
+				<img src="images/fengexian.png">
+				<div id="noticeBox" class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<img src="images/tishi(1).png">
+						<span class="badge" id="notice">{{noticeLength}}</span>
+					</a>
+					<ul class="dropdown-menu" id="notice-menu">
+                        <li ng-repeat="item in successNotice"><a ng-click="showNotice();" data-content="{{item.content}}" data-id="{{item.id}}">{{item.title}}</a></li>
+                    </ul>
+				</div>
+			</div>
+			<a id="mod">
+				<div class="middle-box">
+					<img src="images/fengexian.png">
+					<img src="images/modification.png">
+				</div>
+			</a>
+			<div class="right-box" ng-click="Logout();">
+				<img src="images/fengexian.png">
+				<img src="images/logout.png">
+			</div>
+		</div>
+		</div>
+		<!--/.navbar-collapse -->
+	</nav>
+	<div class="col-lg-10 col-md-9 col-sm-9 col-xs-11 titleBox">
+		<img src="images/icon_position.png"><i id="ihead">欢迎登录</i>
+	</div>
+	<!-- 主内容区 -->
+	<div class="col-lg-10 col-md-9 col-sm-9 col-xs-11 mainView" ui-view id="mainView"></div>
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   		<div class="modal-dialog">
+	    	<div class="modal-content">
+	        	<div class="modal-header">
+	            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	            	<h4 class="modal-title" id="myModalLabel">推送消息</h4>
+	        	</div>
+	        	<div class="modal-body" id="modalBody"> 
+	        		<div class="row">
+                        <div class="col-md-3 text-right no-padding">标题:</div>
+	          	        <div class="col-md-8 no-padding">{{noticeTitle}}</div>
+                    </div>	
+                    <div class="row">
+                        <div class="col-md-3 text-right no-padding">消息内容:</div>
+	          	        <div class="col-md-8 no-padding">{{noticeContent}}</div>
+                    </div>	        	
+	        	</div>
+	        	<div class="modal-footer">
+	            	<button type="button" class="btn btn-success" data-dismiss="modal">关闭</button>
+	        	</div>
+	    	</div>
+		</div>
+	</div>
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="userModModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   		<div class="modal-dialog">
+	    	<div class="modal-content">
+	        	<div class="modal-header">
+	            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	            	<h4 class="modal-title" id="myModalLabel">密码修改</h4>
+	        	</div>
+	        	<div class="modal-body" id="modalBody"> 
+	        		<div class="container col-xs-11">
+						<form class="form-horizontal" role="form">       	
+        					<div class="form-group"> 
+            					<label for="preUserpswd" class="col-sm-4 control-label">原始密码</label>
+            					<div class="col-sm-7">
+            						<input type="password" id="preUserpswd" ng-model="preUserpswd" class="form-control" placeholder="请输入原始密码">
+            					</div>
+        					</div>  
+       						 <div class="form-group"> 
+            					<label for="newUserpswd" class="col-sm-4 control-label">新密码</label>
+            					<div class="col-sm-7">
+            						<input type="password" id="newUserpswd" ng-model="newUserpswd" class="form-control" placeholder="请输入新密码">
+            					</div>
+        					</div>  
+        					<div class="form-group"> 
+           						<label for="reUserpswd" class="col-sm-4 control-label">请再次输入密码</label>
+            					<div class="col-sm-7">
+            						<input type="password" id="reUserpswd" ng-model="reUserpswd" class="form-control" placeholder="请再次输入新密码">
+            					</div>
+        					</div>             
+    					</form>   	    
+					</div>	        	
+	        	</div>
+	        	<div class="modal-footer">
+	            	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	            	<button type="button" class="btn btn-success" ng-click="updatePswd();">保存</button> 
+	        	</div>
+	    	</div>
+		</div>
+	</div>
+</body>
+</html>

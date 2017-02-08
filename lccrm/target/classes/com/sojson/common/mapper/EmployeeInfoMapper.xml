@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sojson.common.dao.EmployeeInfoMapper">
+	<resultMap id="BaseResultMap" type="com.sojson.common.model.EmployeeInfo">
+		<id column="id" property="id" jdbcType="BIGINT" />
+	    <result column="userId" property="userId" jdbcType="BIGINT" />
+	    <result column="employeeName" property="employeeName" jdbcType="VARCHAR" /> 
+	    <result column="employeePost" property="employeePost" jdbcType="BIGINT" />
+	    <result column="department" property="department" jdbcType="BIGINT" />
+	    <result column="roleId" property="roleId" jdbcType="BIGINT" />
+	    <result column="employeeCellPhone" property="employeeCellPhone" jdbcType="VARCHAR" />
+	    <result column="employeeEmail" property="employeeEmail" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List" >
+    id, userId, employeeName, employeePost, department, roleId,employeeCellPhone,employeeEmail
+  	</sql>
+  	
+	<!-- 查询员工姓名
+	<select id="findAllEmployeeName" resultType="com.sojson.employeeInfo.bo.EmployeeInfoBo">
+	select employeeName from t_employeeInfo
+	where 1=1
+	<if test="employeeName != null and employeeName !='' ">
+		and employeeName like CONCAT("%",#{employeeName,jdbcType=VARCHAR},"%")
+	</if>
+	</select>
+	 -->
+	<!-- 查询手机号 
+	<select id="findAllCellPhone" resultType="com.sojson.EmployeeInfo.bo.employeeInfoBo">
+	select employeeCellPhone from t_employeeInfo
+	where 1=1
+	<if test="employeeCellPhone != null and employeeCellPhone !='' ">
+		and employeeCellPhone like CONCAT("%",#{employeeCellPhone,jdbcType=VARCHAR},"%")
+	</if>
+	</select>
+	-->
+	
+	<!-- 下拉框-查询部门名称 -->
+	<select id="findDepartName" resultType="com.sojson.employeeInfo.bo.EmployeeInfoBo">
+		select DISTINCT(td.departName) as department, te.department as departmentID
+		from t_employeeInfo te
+        LEFT JOIN t_department td
+        ON te.department = td.id
+	</select>
+	
+	<!-- 下拉框-员工职务(ygzw)  -->
+	<select id="findDicTitleByDicId" resultType="com.sojson.customerInfo.bo.CustomerInfoBo">
+		select dicTitle,id
+		from t_dictionary
+		where dicId = #{dicId,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 根据查询 条件查询 -->
+	<select id="findAllEmployee" resultMap="BaseResultMap">
+	select 
+    <include refid="Base_Column_List" />
+    from t_employeeInfo
+    where 1=1
+    <if test="employeeName != null and employeeName !='' " >
+        and employeeName like  CONCAT ("%",#{employeeName,jdbcType=VARCHAR},"%")
+    </if>
+    <if test="employeeCellPhone != null and employeeCellPhone !='' " >
+        and employeeCellPhone like  CONCAT("%",#{employeeCellPhone,jdbcType=VARCHAR},"%")
+    </if>
+	</select>
+	
+	<!-- 根据id查询职务 -->
+	<select id="findemployeePostByid" resultType="com.sojson.employeeInfo.bo.EmployeeInfoBo">
+		select td.dicTitle as employeePost, td.id as employeePostId
+		from t_dictionary td,t_employeeInfo te where
+		td.id=te.employeePost and te.id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 根据id查询部门 -->
+	<select id="finddepartmentByid" resultType="com.sojson.employeeInfo.bo.EmployeeInfoBo">
+		select td.departName as department, td.id as departmentId
+		from t_department td,t_employeeInfo te where
+		td.id=te.department and te.id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 根据主键删除字典表的数据 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+   		delete from t_employeeInfo
+   		where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+	<!-- 新增员工数据 -->
+	<insert id="insertEmp" useGeneratedKeys="true" keyProperty="id" parameterType="com.sojson.common.model.EmployeeInfo" >
+    insert into t_employeeInfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="employeeName != null" >
+        employeeName,
+      </if>
+      <if test="employeePost != null" >
+        employeePost,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="roleId != null" >
+        roleId,
+      </if>
+ 	  <if test="employeeCellPhone != null" >
+        employeeCellPhone,
+      </if>
+       <if test="employeeEmail != null" >
+        employeeEmail,
+      </if>    
+      </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeePost != null" >
+        #{employeePost,jdbcType=BIGINT},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="employeeCellPhone != null" > 
+        #{employeeCellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeEmail != null" >
+        #{employeeEmail,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+	
+	
+	<!-- 修改员工表 -->
+    <update id="updateEmp" parameterType="com.sojson.common.model.EmployeeInfo" >
+    	update t_employeeInfo
+    <set >
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="employeeName != null" >
+        employeeName = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeePost != null" >
+        employeePost = #{employeePost,jdbcType=BIGINT},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null" >
+        roleId = #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="employeeCellPhone != null" >
+        employeeCellPhone = #{employeeCellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeEmail != null" >
+        employeeEmail = #{employeeEmail,jdbcType=VARCHAR},
+      </if>
+    </set>
+   	 	where id = #{id,jdbcType=BIGINT}
+    </update>
+	</mapper>

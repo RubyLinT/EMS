@@ -1,0 +1,292 @@
+@charset "utf-8";
+*{
+	padding:0;
+	margin:0;
+}
+/*自定义动画，名称为donghua*/
+@keyframes donghua {
+	30% {
+		background:url(../../images/background.png) no-repeat;
+		background-size:100% 100%;
+	}
+	60% {
+		background:url(../../images/background2.png) no-repeat;
+		background-size:100% 100%;
+	}
+	100% {
+		background:url(../../images/background3.png) no-repeat;
+		background-size:100% 100%;
+	}
+
+}
+html {
+	height:100%;
+}
+body{
+	background:url(../../images/background3.png) no-repeat;
+	animation:donghua 30s ease 1s infinite;
+	background-size:100% 100%;
+}
+.main{
+	width: 100%;
+	margin-top:200px;
+}
+.login {
+	width:448px;
+	height:499px;
+	background:url(../../images/bg_white.png) no-repeat;
+	background-size:100% 100%;
+	margin:0 auto;
+}
+.Register {
+	width:448px;
+	height:600px;
+	background:url(../../images/bg_white.png) no-repeat;
+	background-size:100% 100%;
+	margin:0 auto;
+}
+.login-header {
+	height: 100px;
+	background:url(../../images/logo5.png) no-repeat 140px 60px;
+}
+.register-header {
+	font-size:24px;
+	padding-top:45px;
+	padding-left:160px;
+	color:#fff;
+}
+.login-form {
+	height:248px;
+	width:100%;
+	padding: 10px 60px;
+	position: relative;
+}
+.login-form .login-input {
+	margin:15px auto;
+	width: 270px;
+	height: 34px;
+    padding: 6px 12px;
+    padding-left:50px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #fff;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    font-family: inherit;
+    outline:none;
+}
+.login-form #vcodes {
+	width: 130px;
+	padding-left:10px;
+}
+.login-form img {
+	cursor: pointer;
+    margin-bottom: -15px;
+    border-radius: 5px;
+}
+.login-form .login-user {
+	position: absolute;
+	top:36px;
+	left:70px;
+	font-size:24px;
+	color:#fff;
+}
+.login-form .login-envelop {
+	position: absolute;
+	top:115px;
+	left:70px;
+	font-size:24px;
+	color:#fff;
+}
+.login-form .login-pwd {
+	position: absolute;
+	top:115px;
+	left:75px;
+	font-size:24px;
+	color:#fff;
+}
+.login-form .login-password {
+	position: absolute;
+	top:191px;
+	left:75px;
+	font-size:24px;
+	color:#fff;
+}
+.login-form .login-re-password {
+	position: absolute;
+	top:267px;
+	left:75px;
+	font-size:24px;
+	color:#fff;
+}
+.remember {
+	width: 100%;
+	height: 50px;
+	color:#fff;
+	position: relative;
+	padding: 0 30px;
+	font-size:18px;
+}
+.remember .check {
+	position: absolute;
+	top: :0px;
+	left:0px;
+	width:20px;
+	height:20px;
+}
+.remember  a {
+	color:#00D2FF;
+	text-decoration: none;
+	position: absolute;
+	top:0px;
+	left:265px;
+}
+.login-btn {
+	width: 100%;
+	height: 100px;
+}
+.login-btn .login-button {
+	width: 270px;
+	height: 48px;
+	margin: 30px;
+	display: inline-block;
+    padding: 5px 0;
+    font-size: 18px;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    color:#fff;
+    background-color: #00D2FF;
+   	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+.login-btn .login-button:hover {
+    background-color: #00C8F5;
+    border-color: #269abc;
+}
+.login-btn .login-button-mini {
+	width: 152px;
+	height: 48px;
+	margin: 15px 4px;
+	display: inline-block;
+    padding: 5px 0;
+    font-size: 18px;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    color:#fff;
+    background-color: #E89900;
+   	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+.login-btn .login-button-mini:hover {
+    background-color: #bf8109;
+    border-color: #e09505;
+}
+/*媒体查询*/
+@media (max-width:768px) {
+	.main{
+		margin:80px auto;
+	}
+	.login {
+		width:300px;
+		height:400px;
+	}
+	.Register {
+		width:300px;
+		height:450px;
+	}
+	.login-header {
+		background:url(../../images/logo.png) no-repeat 65px 50px;
+	}
+	.register-header {
+		padding-top:30px;
+		padding-left:100px;
+	}
+	.login-form {
+		padding: 10px 30px;
+	}
+	.login-form .login-input {
+		margin:10px auto;
+		width: 180px;
+		height: 30px;
+	    padding: 4px 12px;
+	    padding-left:40px;
+	    border-radius: 6px;
+	}
+	.login-form #vcodes {
+		width: 83px;
+	}
+	.login-form img {
+		width:117px;
+		margin-bottom:-12px;
+	}
+	.login-form .login-user {
+		top:30px;
+		left:35px;
+		font-size:22px;
+	}
+	.login-form .login-envelop {
+		top:89px;
+		left:35px;
+		font-size:22px;
+	}
+	.login-form .login-password {
+		top:147px;
+		left:37px;
+		font-size:22px;
+	}
+	.login-form .login-re-password {
+		top:206px;
+		left:37px;
+		font-size:22px;
+	}
+	.login-form .login-pwd {
+		top:87px;
+		left:37px;
+		font-size:22px;
+	}
+	.remember {
+		padding: 0 20px;
+		font-size:16px;
+	}
+	.remember input[type="checkbox"] {
+  		-webkit-appearance: none;
+  		background: #fff url(../../images/select_none.png) no-repeat;
+ 		height: 20px;
+  		vertical-align: middle;
+  		width: 20px;
+	}
+	.remember input[type="checkbox"]:checked {
+		background: url(../../images/select_yes.png) no-repeat;
+		outline: none;
+	}
+	.remember  a {
+		left:170px;
+	}
+	.login-btn .login-button {
+		width: 210px;
+		height: 35px;
+		margin: 12px;
+	    border-radius: 6px;
+	}
+	.login-btn .login-button-mini {
+		width: 105px;
+		height: 35px;
+		margin: 12px 4px;
+    	border-radius: 6px;
+	}
+}

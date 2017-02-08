@@ -1,0 +1,61 @@
+<div class="container col-xs-12">
+    <!-- 标题区 -->
+    <div class="header-span"><span class="glyphicon glyphicon-home"></span>主页&gt;&gt;数据字典&gt;&gt;新建字典</div>
+    <!-- 表单区 -->
+    <form class="form-horizontal" role="form">        
+    	<!-- 字典ID -->
+        <div class="form-group"> 
+            <label for="dicId" class="col-sm-2 control-label">*字典ID:</label>
+            <div class="col-sm-7">
+                <input type="text" id="dicId" ng-model="dicId" class="form-control" placeholder="请输入字典ID">
+            </div>
+        </div>  
+        <!-- 字典名称 -->
+        <div class="form-group"> 
+            <label for="dicName" class="col-sm-2 control-label">*字典名称:</label>
+            <div class="col-sm-7">
+                <input type="text" id="dicName" ng-model="dicName" class="form-control" placeholder="请输入字典名称">
+            </div>
+        </div>  
+        <!-- 上级ID -->
+        <div class="form-group"> 
+            <label for="higherId1" class="col-sm-2 control-label">上级ID:</label> 
+            <!-- 上级ID1 -->           
+            <div class="col-sm-3">
+                <input type="text" id="higherId1" ng-model="higherId1" class="form-control" list="datalist1" placeholder="请输入上级ID">
+                <datalist id="datalist1">
+                    <option value="{{item}}" label="{{item}}" ng-repeat="item in data"></option>
+                </datalist> 
+            </div>     
+            <!-- 上级ID2 -->
+            <div class="col-sm-3">
+                <input type="text" id="higherId2" ng-model="higherId2" class="form-control" list="datalist2" placeholder="请输入上级ID">
+                <datalist id="datalist2">
+                    <option value="{{item2}}" label="{{item2}}" ng-repeat="item2 in data2"></option>
+                </datalist> 
+            </div>               
+        </div>     
+        <!-- 字典内容 -->  
+        <div class="form-group"> 
+            <label for="dicTitle" class="col-sm-2 control-label">*字典内容:</label>
+            <div class="col-sm-7">
+                <input type="text" id="dicTitle" ng-model="dicTitle" class="form-control" placeholder="请输入字典内容">
+            </div>
+        </div>  
+        <!-- 排序 -->
+        <div class="form-group"> 
+            <label for="orderNum" class="col-sm-2 control-label">排序:</label>
+            <div class="col-sm-7">
+                <input type="text" id="orderNum" ng-model="orderNum" class="form-control" placeholder="请输入排序">
+            </div>
+        </div>   
+        <!-- 操作按钮 -->   
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <a ui-sref="dictionary" class="btn btn-success">关闭</a>
+                <button type="button" class="btn btn-success" ng-click="addDic();">保存</button>
+            </div>
+        </div>         
+    </form>
+</div>
+	 

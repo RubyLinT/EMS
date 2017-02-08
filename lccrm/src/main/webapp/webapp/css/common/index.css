@@ -1,0 +1,101 @@
+@charset "utf-8";
+/*头部区*/
+.header{
+	margin: 0;
+	background:#2D313D;
+}
+
+.header h3 {
+	height: 50px;
+	margin: 0;
+	line-height: 66px;
+	color: #fff;
+	font-family: "Microsoft YaHei";	
+}
+/*欢迎字幕*/
+.line {
+	line-height: 50px;
+	margin-right: 30px;
+	font-size: 16px;
+	color: #fff;
+	font-family: "Microsoft YaHei";
+}
+/*侧边栏*/
+#aside{
+	text-align:center;
+	width: 150px;
+	position: fixed;
+	top: 66px;
+	left: 0;
+	height: 900px;
+	padding: 0;
+	background: #2D313D;	
+}
+
+#aside a {
+	background:#2D313D;
+	color: #fff;
+	border: 0;
+	height: 50px;
+	line-height:30px;
+}
+#aside a:hover {
+	background: #337ab7;
+}
+#aside .hl {
+	background: #337ab7;
+}
+#aside .title {	
+	background: #404657;
+	height: 50px;
+	width: 100%;	
+	border:1px solid #000;
+	line-height:50px;
+	text-align:right;
+}
+#aside .title span {
+	margin-right:10px;
+	color:#fff;
+}
+
+.icon {
+	margin-right: 5px;
+}
+.bar {
+	width:30px;
+	height:30px;
+	text-align:center;
+	line-height:30px;
+	position: fixed;
+	top: 70px;
+	left: 10px;
+	background:#2D313D;
+	color: #fff;
+}
+/*主内容区*/
+.mainView {
+	position: absolute;
+	top: 80px;
+	left: 170px;
+}
+#mm-menu {
+	width: 200px;
+}
+
+.Label {
+	width:64px;
+	text-align:right;
+}
+/*媒体查询*/
+@media (max-width:768px) {
+	#aside {
+		top: 101px;
+	}
+	.line {
+		margin-right: 10px;
+		font-size: 1em;
+	}
+	.mainView {
+		top: 115px;
+	}
+}
