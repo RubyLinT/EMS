@@ -436,7 +436,6 @@ $.Autocompleter.defaults = {
 };
 
 $.Autocompleter.Cache = function(options) {
-
 	var data = {};
 	var length = 0;
 	
@@ -478,7 +477,6 @@ $.Autocompleter.Cache = function(options) {
 			var rawValue = options.data[i];
 			// if rawValue is a string, make an array otherwise just reference the array
 			rawValue = (typeof rawValue == "string") ? [rawValue] : rawValue;
-			
 			var value = options.formatMatch(rawValue, i+1, options.data.length);
 			if ( value === false )
 				continue;

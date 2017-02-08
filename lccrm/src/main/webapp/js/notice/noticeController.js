@@ -202,12 +202,7 @@ angular.module('notice.controller',[])
             }else {
             	var pagerSize = $scope.pagerSize;
             }
-        	//currPage（当前页码）等于pagerNum（页面传递的页码）
-            $scope.currPage = pagerNum;
-            //每页开始的第一条
-            $scope.startNum = parseInt( ($scope.currPage - 1)*pagerSize);
-            //每页开始的最后一条
-            $scope.endNum = parseInt($scope.currPage*pagerSize - 1);
+        	
             // 调用service分页查询业务功能
             var promise = noticeService.queryNoticeMsg($scope.title);
             layer.load();
@@ -221,6 +216,15 @@ angular.module('notice.controller',[])
                 } else {
                     $scope.pagerCount = parseInt($scope.totle/pagerSize + 1);
                 }
+                if(pagerNum > $scope.pagerCount){
+            		pagerNum = 1;
+            	}
+              //currPage（当前页码）等于pagerNum（页面传递的页码）
+                $scope.currPage = pagerNum;
+                //每页开始的第一条
+                $scope.startNum = parseInt( ($scope.currPage - 1)*pagerSize);
+                //每页开始的最后一条
+                $scope.endNum = parseInt($scope.currPage*pagerSize - 1);
                 //分页具体实现
                 var endP = $scope.pagerCount-2;
                 //分页页码

@@ -381,12 +381,7 @@ angular.module('cus.controller',[])
         	var customType = $('#customType :selected').val();//类型
         	var industry = $('#industry :selected').val();//行业
         	var customState = $('#customState :selected').val();//状态
-        	//currPage（当前页码）等于pagerNum（页面传递的页码）
-            $scope.currPage = pagerNum;
-            //每页开始的第一条
-            $scope.startNum = parseInt( ($scope.currPage - 1)*$scope.pagerSize);
-            //每页开始的最后一条
-            $scope.endNum = parseInt($scope.currPage*$scope.pagerSize - 1);
+        	
             // 调用service分页查询业务功能
             var promise = queryCusService.queryCusMsg($scope.workUnit,customType,industry,customState);
             layer.load();
@@ -400,6 +395,15 @@ angular.module('cus.controller',[])
                 } else {
                     $scope.pagerCount = parseInt(data.length/$scope.pagerSize + 1);
                 }
+                if(pagerNum > $scope.pagerCount){
+            		pagerNum = 1;
+            	}
+                //currPage（当前页码）等于pagerNum（页面传递的页码）
+                $scope.currPage = pagerNum;
+                //每页开始的第一条
+                $scope.startNum = parseInt( ($scope.currPage - 1)*$scope.pagerSize);
+                //每页开始的最后一条
+                $scope.endNum = parseInt($scope.currPage*$scope.pagerSize - 1);
                 //分页具体实现
                 var endP = $scope.pagerCount-2;
                 //分页页码
@@ -449,12 +453,7 @@ angular.module('cus.controller',[])
         	var customType = $('#customType :selected').val();//类型
         	var industry = $('#industry :selected').val();//行业
         	var customState = $('#customState :selected').val();//状态
-        	//currPage（当前页码）等于pagerNum（页面传递的页码）
-            $scope.currPageM = pagerNum;
-            //每页开始的第一条
-            $scope.startNumM = parseInt( ($scope.currPageM - 1)*$scope.pagerSizeM);
-            //每页开始的最后一条
-            $scope.endNumM = parseInt($scope.currPageM*$scope.pagerSizeM - 1);
+        	
             // 调用service分页查询业务功能
             var promise = queryCusService.queryCusManMsg($scope.workUnitM,customType,industry,customState);
             layer.load();
@@ -468,6 +467,15 @@ angular.module('cus.controller',[])
                 } else {
                     $scope.pagerCountM = parseInt(data.length/$scope.pagerSizeM + 1);
                 }
+                if(pagerNum > $scope.pagerCountM){
+            		pagerNum = 1;
+            	}
+              //currPage（当前页码）等于pagerNum（页面传递的页码）
+                $scope.currPageM = pagerNum;
+                //每页开始的第一条
+                $scope.startNumM = parseInt( ($scope.currPageM - 1)*$scope.pagerSizeM);
+                //每页开始的最后一条
+                $scope.endNumM = parseInt($scope.currPageM*$scope.pagerSizeM - 1);
                 //分页具体实现
                 var endP = $scope.pagerCountM-2;
                 //分页页码
@@ -504,6 +512,7 @@ angular.module('cus.controller',[])
         }
         //分页查询客户公海方法
         $scope.queryCusHSea = function(pagerNum) {
+        	
         	if($('#aside').offset().left == 0){
 		    	$('#mainView').animate({left:212},10);
 	    	} else {
@@ -516,12 +525,6 @@ angular.module('cus.controller',[])
         	var customType = $('#customType :selected').val();//类型
         	var industry = $('#industry :selected').val();//行业
         	var customState = $('#customState :selected').val();//状态
-        	//currPage（当前页码）等于pagerNum（页面传递的页码）
-            $scope.currPageHS = pagerNum;
-            //每页开始的第一条
-            $scope.startNumHS = parseInt( ($scope.currPageHS - 1)*$scope.pagerSizeHS);
-            //每页开始的最后一条
-            $scope.endNumHS = parseInt($scope.currPageHS*$scope.pagerSizeHS - 1);
             // 调用service分页查询业务功能
             var promise = queryCusService.queryCusHSeaMsg($scope.workUnitHS,customType,industry,customState);
             layer.load();
@@ -535,6 +538,15 @@ angular.module('cus.controller',[])
                 } else {
                     $scope.pagerCountHS = parseInt(data.length/$scope.pagerSizeHS + 1);
                 }
+                if(pagerNum > $scope.pagerCountHS){
+            		pagerNum = 1;
+            	}
+                //currPage（当前页码）等于pagerNum（页面传递的页码）
+                $scope.currPageHS = pagerNum;
+                //每页开始的第一条
+                $scope.startNumHS = parseInt( ($scope.currPageHS - 1)*$scope.pagerSizeHS);
+                //每页开始的最后一条
+                $scope.endNumHS = parseInt($scope.currPageHS*$scope.pagerSizeHS - 1);
                 //分页具体实现
                 var endP = $scope.pagerCountHS-2;
                 //分页页码
@@ -857,35 +869,35 @@ angular.module('cus.controller',[])
                 		html += '<div class="bottom-margin">';
                 		html += '	<h4 class="modal-title" id="myModalLabel">记录' + j + '</h4>';
                 		html += '	<div class="row">';
-                		html += '		<div class="col-md-3 text-right">单位名称:</div>';
+                		html += '		<div class="col-md-4 text-right">单位名称:</div>';
                 		html += '		<div class="col-md-8 no-padding">' + data[i].customId + '</div>';
                 		html += '	</div>';
                 		html += '	<div class="row">';
-                		html += '		<div class="col-md-3 text-right">跟踪人:</div>';
+                		html += '		<div class="col-md-4 text-right">跟踪人:</div>';
                 		html += '		<div class="col-md-8 no-padding">' + data[i].ascription + '</div>';
                 		html += '	</div>';
                 		html += '	<div class="row">';
-                		html += '		<div class="col-md-3 text-right">记录时间:</div>';
+                		html += '		<div class="col-md-4 text-right">记录时间:</div>';
                 		html += '		<div class="col-md-8 no-padding">' + data[i].recordTime + '</div>';
                 		html += '	</div>';
                 		html += '	<div class="row">';
-                		html += '		<div class="col-md-3 text-right">联系人:</div>';
+                		html += '		<div class="col-md-4 text-right">联系人:</div>';
                 		html += '		<div class="col-md-8 no-padding">' + data[i].contactId + '</div>';
                 		html += '	</div>';
                 		html += '	<div class="row">';
-                		html += '		<div class="col-md-3 text-right">跟进内容:</div>';
+                		html += '		<div class="col-md-4 text-right">跟进内容:</div>';
                 		html += '		<div class="col-md-8 no-padding">' + data[i].trackContent + '</div>';
                 		html += '	</div>';
                 		html += '	<div class="row">';
-                		html += '		<div class="col-md-3 text-right">附件:</div>';
+                		html += '		<div class="col-md-4 text-right">附件:</div>';
                 		html += '		<div class="col-md-8 no-padding">' + data[i].trackFile + '</div>';
                 		html += '	</div>';
                 		html += '	<div class="row">';
-                		html += '		<div class="col-md-3 text-right">预计下次跟进时间:</div>';
+                		html += '		<div class="col-md-4 text-right">预计下次跟进时间:</div>';
                 		html += '		<div class="col-md-8 no-padding">' + nextTrackDate + '</div>';
                 		html += '	</div>';
                 		html += '	<div class="row">';
-                		html += '		<div class="col-md-3 text-right">预计跟进内容:</div>';
+                		html += '		<div class="col-md-4 text-right">预计跟进内容:</div>';
                 		html += '		<div class="col-md-8 no-padding">' + data[i].nextComtent + '</div>';
                 		html += '	</div>';
                 		html += '</div>';

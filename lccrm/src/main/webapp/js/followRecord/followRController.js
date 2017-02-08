@@ -46,12 +46,12 @@ angular.module('fol.controller',[])
             var promise = followRService.getCus();
             //调用成功的回调函数
             promise.success(function(data) {
-            	$scope.customIdL = [];
+            	$scope.customIdV = [];
             	$scope.max = data.successCount.length;
             	for(var i = 0;i < data.successCount.length;i ++){
             		var obj = new Object();
-            		$scope.customIdL[i] = obj;
-            		$scope.customIdL[i].name = data.successCount[i].workUnit;
+            		$scope.customIdV[i] = obj;
+            		$scope.customIdV[i].name = data.successCount[i].workUnit;
             	}
             });
             //调用失败的回调函数
@@ -70,7 +70,7 @@ angular.module('fol.controller',[])
     	}
         $scope.startFun = function() {
     		var vid ="#" + $('#customId').attr('id');
-    		$(vid).autocomplete($scope.customIdL, {
+    		$(vid).autocomplete($scope.customIdV, {
                 max: $scope.max,    //列表里的条目数
                 minChars: 0,    //自动完成激活之前填入的最小字符
                 width: width,     //提示的宽度，溢出隐藏
@@ -83,13 +83,15 @@ angular.module('fol.controller',[])
                     return row.name;
                 },
                 formatMatch: function (row, i, max) {//对每一行数据使用此函数格式化需要查询的数据格式. 返回值是给内部搜索算法使用的. 参数值row
-
+                	
                     return row.name;
                 },
                 formatResult: function (row) {//返回值
+                	
                     return row.name;
                 }
             }).result(function (event, row, formatted) {//得到值后的事件
+            
                 //alert(row.to);
             });
     	}
@@ -252,7 +254,7 @@ angular.module('fol.controller',[])
         	.done(function(data) {
         		$scope.customIdL = data.successCount;
         		for(var i = 0;i < $scope.customIdL.length;i ++){
-                	if($scope.customId == $scope.customIdL[i].workUnit){
+                	if($('#customId').val() == $scope.customIdL[i].workUnit){
                 		customId = $scope.customIdL[i].id;
                 	}
                 }
@@ -277,6 +279,7 @@ angular.module('fol.controller',[])
             	layer.msg('请输入有效的单位名称！');
             	return;
             }
+            
             // 调用service分页查询业务功能
             var promise = followRService.followRMsg(customId,$scope.ascription,$scope.createStartTime,$scope.createEndTime);
             layer.load();
@@ -307,7 +310,7 @@ angular.module('fol.controller',[])
             		html += '	<th>'+$scope.data[i].recordTime+'</th>';
             		html += '	<th>'+$scope.data[i].contactId+'</th>';
             		html += '	<th><div class="fixed">'+$scope.data[i].trackContent+'</div></th>';
-            		html += '	<th><div class="fixed"><a href="'+$scope.data[i].trackFile+'">'+$scope.data[i].trackFile+'</a></div></th>';
+            		html += '	<th><div class="fixed">'+$scope.data[i].trackFile+'</div></th>';
             		html += '	<th>'+nextTrackDate+'</th>';
             		html += '	<th><div class="fixed">'+$scope.data[i].nextComtent+'</div></th>';
             		html += '</tr>';
