@@ -86,8 +86,8 @@
 		<include refid="Base_Column_List" />
 		from t_customerinfo where 1=1
 		and delFlag = 1
-		<!-- and ascription != "" -->
-		and ascriptionTime != ""
+		 and ascription != "" 
+		<!--and ascriptionTime != ""-->
 		<if test="ascription != null and ascription !='' " >
 	        and ascription = #{ascription,jdbcType=VARCHAR}
 	    </if>
@@ -240,9 +240,13 @@
 			<if test="address != null">
 				address,
 			</if>
+			<if test="ascriptionTime != null">
+				ascriptionTime,
+			</if>	
 			<if test="workPhone != null">
 				workPhone,
 			</if>	
+			
 			<if test="summary != null">
 				summary,
 			</if>	
@@ -279,6 +283,9 @@
 			<if test="address != null">
 				#{address,jdbcType=VARCHAR},
 			</if>	
+			<if test="ascriptionTime != null">
+				#{ascriptionTime,jdbcType=VARCHAR},
+			</if>
 			<if test="workPhone != null">
 				#{workPhone,jdbcType=BIGINT},
 			</if>	

@@ -144,6 +144,18 @@ body{
 	top:0px;
 	left:265px;
 }
+.remember input[type="checkbox"] {
+  	-webkit-appearance: none;
+  	background:url(../../images/select_none.png) no-repeat;
+ 	height: 20px;
+  	vertical-align: middle;
+  	width: 20px;
+  	outline: none;
+}
+.remember input[type="checkbox"]:checked {
+	background: url(../../images/select_yes.png) no-repeat;
+	outline: none;
+}
 .login-btn {
 	width: 100%;
 	height: 100px;
@@ -199,7 +211,7 @@ body{
 /*媒体查询*/
 @media (max-width:768px) {
 	.main{
-		margin:80px auto;
+		margin-top: 50px;
 	}
 	.login {
 		width:300px;
@@ -265,10 +277,11 @@ body{
 	}
 	.remember input[type="checkbox"] {
   		-webkit-appearance: none;
-  		background: #fff url(../../images/select_none.png) no-repeat;
+  		background:url(../../images/select_none.png) no-repeat;
  		height: 20px;
   		vertical-align: middle;
   		width: 20px;
+  		outline: none;
 	}
 	.remember input[type="checkbox"]:checked {
 		background: url(../../images/select_yes.png) no-repeat;

@@ -37,6 +37,27 @@ angular.module('cus.controller',[])
         $scope.dataHS = "";//传递的数据        
         $scope.pageBtnsHS = [];// 分页页码按钮
         $scope.pagename = $('.header-span').attr('id');
+        //当前登录人
+	    $scope.userName = '';
+	    //获取当前登录人
+	    $.ajax({
+    		async:false, //true异步请求（默认）,false同步请求
+			url: 'user/findAccount.shtml',
+			type: 'GET',
+			dataType: 'json'
+    	})
+    	.done(function(data) {
+    		$scope.userName = data.nickName;
+		})
+		.fail(function(xhr,errorStatus,errorText) {
+			layer.msg('未登录，请从新登录！');   
+            setTimeout(function(){
+        		window.location.href = 'login.html';
+			},300);
+		});
+	    if($scope.userName != '管理员'){
+	    	$('#cusMAdd').hide();
+	    }
         //业务员排序功能
         $scope.queryUpByOrder = function(c,namecus,typecus,industrycus,statecus,citycus,formcus,ascriptioncus,data) {
         	//声明一个空数组
@@ -127,12 +148,12 @@ angular.module('cus.controller',[])
         var namecus = 0;//默认单位名称升序排序
         var typecus = 0;//默认类型升序排序
         var industrycus = 0;//默认行业升序排序
-        var statecus = 0;//默认行业升序排序
+        var statecus = 0;//默认状态升序排序
         var citycus = 0;//默认城市升序排序
         var formcus = 0;//默认来源升序排序
         var ascriptioncus = 0;//默认业务员升序排序
         var c = 1;//默认按照类型升序排序
-        //每单击单位名称标题，升降序互换排序
+        //每单击单位名称，升降序互换排序
         $scope.nameCusChange = function() {
         	c = 0;
             typecus = 0;
@@ -159,7 +180,7 @@ angular.module('cus.controller',[])
             	$scope.queryCusHSea(1);
             }
         }
-        //每单击类型标题，升降序互换排序
+        //每单击类型，升降序互换排序
         $scope.typeChange = function() {
         	c = 1;
         	namecus = 0;
@@ -186,7 +207,7 @@ angular.module('cus.controller',[])
             	$scope.queryCusHSea(1);
             }
         }
-        //每单击行业标题，升降序互换排序
+        //每单击行业，升降序互换排序
         $scope.industryChange = function() {
         	c = 2;
         	namecus = 0;
@@ -213,7 +234,7 @@ angular.module('cus.controller',[])
             	$scope.queryCusHSea(1);
             }
         }
-        //每单击状态标题，升降序互换排序
+        //每单击状态，升降序互换排序
         $scope.stateChange = function() {
         	c = 3;
         	namecus = 0;
@@ -240,7 +261,7 @@ angular.module('cus.controller',[])
             	$scope.queryCusHSea(1);
             }
         }
-        //每单击城市标题，升降序互换排序
+        //每单击城市，升降序互换排序
         $scope.cityChange = function() {
         	c = 4;
         	namecus = 0;
@@ -267,7 +288,7 @@ angular.module('cus.controller',[])
             	$scope.queryCusHSea(1);
             }
         }
-        //每单击来源标题，升降序互换排序
+        //每单击来源，升降序互换排序
         $scope.formChange = function() {
         	c = 5;
         	namecus = 0;
@@ -294,7 +315,7 @@ angular.module('cus.controller',[])
             	$scope.queryCusHSea(1);
             }
         }
-        //每单击业务员标题，升降序互换排序
+        //每单击业务员，升降序互换排序
         $scope.ascriptionChange = function() {
         	c = 6;
         	namecus = 0;
@@ -372,7 +393,7 @@ angular.module('cus.controller',[])
         	if($('#aside').offset().left == 0){
 		    	$('#mainView').animate({left:212},10);
 	    	} else {
-		    	$('#mainView').animate({left:60},10);
+		    	$('#mainView').animate({left:50},10);
 	    	}
         	$('#table2 tr :checkbox').prop('checked',false);
         	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">我的客户</i>');
@@ -422,10 +443,8 @@ angular.module('cus.controller',[])
                         end = $scope.pagerCount;
                     }
                 }
-                
                 // 循环生成页码按钮
                 $scope.pageBtns = [];
-
                 for (var i = start;i <= end;i ++) {
                     $scope.pageBtns.push(i);
                 }
@@ -444,7 +463,7 @@ angular.module('cus.controller',[])
         	if($('#aside').offset().left == 0){
 		    	$('#mainView').animate({left:212},10);
 	    	} else {
-		    	$('#mainView').animate({left:60},10);
+		    	$('#mainView').animate({left:50},10);
 	    	}
         	$('#table2 tr :checkbox').prop('checked',false);
         	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">客户管理</i>');
@@ -453,7 +472,6 @@ angular.module('cus.controller',[])
         	var customType = $('#customType :selected').val();//类型
         	var industry = $('#industry :selected').val();//行业
         	var customState = $('#customState :selected').val();//状态
-        	
             // 调用service分页查询业务功能
             var promise = queryCusService.queryCusManMsg($scope.workUnitM,customType,industry,customState);
             layer.load();
@@ -470,7 +488,7 @@ angular.module('cus.controller',[])
                 if(pagerNum > $scope.pagerCountM){
             		pagerNum = 1;
             	}
-              //currPage（当前页码）等于pagerNum（页面传递的页码）
+                //currPage（当前页码）等于pagerNum（页面传递的页码）
                 $scope.currPageM = pagerNum;
                 //每页开始的第一条
                 $scope.startNumM = parseInt( ($scope.currPageM - 1)*$scope.pagerSizeM);
@@ -480,8 +498,7 @@ angular.module('cus.controller',[])
                 var endP = $scope.pagerCountM-2;
                 //分页页码
                 var start = $scope.currPageM - 2;
-                var end = $scope.currPageM + 2;
-                
+                var end = $scope.currPageM + 2;                
                 if( $scope.pagerCountM <= 5 ){
                 	start = 1;
                     end = $scope.pagerCountM;
@@ -511,12 +528,11 @@ angular.module('cus.controller',[])
             });
         }
         //分页查询客户公海方法
-        $scope.queryCusHSea = function(pagerNum) {
-        	
+        $scope.queryCusHSea = function(pagerNum) {        	
         	if($('#aside').offset().left == 0){
 		    	$('#mainView').animate({left:212},10);
 	    	} else {
-		    	$('#mainView').animate({left:60},10);
+		    	$('#mainView').animate({left:50},10);
 	    	}
         	$('#table2 tr :checkbox').prop('checked',false);
         	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">客户公海</i>');
@@ -551,8 +567,7 @@ angular.module('cus.controller',[])
                 var endP = $scope.pagerCountHS-2;
                 //分页页码
                 var start = $scope.currPageHS - 2;
-                var end = $scope.currPageHS + 2;
-                
+                var end = $scope.currPageHS + 2;                
                 if( $scope.pagerCountHS <= 5 ){
                 	start = 1;
                     end = $scope.pagerCountHS;
@@ -567,7 +582,6 @@ angular.module('cus.controller',[])
                 }
                 // 循环生成页码按钮
                 $scope.pageBtnsHS = [];
-
                 for (var i = start;i <= end;i ++) {
                     $scope.pageBtnsHS.push(i);
                 }
@@ -605,7 +619,7 @@ angular.module('cus.controller',[])
         	}
         	$scope.queryCusMan(goPage);
         }
-      //跳转到第几页方法
+        //跳转到第几页方法
         $scope.goQueryCusHSea = function(goPage){
         	if(goPage > $scope.pagerCountHS){
         		layer.msg('请输入0~'+$scope.pagerCountHS+'之间的数');
@@ -629,7 +643,7 @@ angular.module('cus.controller',[])
         		$scope.queryCusMan($scope.currPageM-1);
         	}
         }
-      //上一页按钮查询方法
+        //上一页按钮查询方法
         $scope.prevBtnQueryCusHSea = function(){
         	if($scope.currPageHS == 1){
         		$scope.queryCusHSea(1);
@@ -653,7 +667,7 @@ angular.module('cus.controller',[])
         		$scope.queryCusMan($scope.currPageM+1);
         	}
         }
-      //下一页按钮查询方法
+        //下一页按钮查询方法
         $scope.nextBtnQueryCusHSea = function(){
         	if($scope.currPageHS == $scope.pagerCountHS){
         		$scope.queryCusHSea($scope.pagerCountHS);
@@ -693,8 +707,7 @@ angular.module('cus.controller',[])
         			$state.go('customerMod',{id:id,workUnit:workUnit,customType:customType,industry:industry,customState:customState,customCity:customCity,customFrom:customFrom,ascription:ascription,pagename:pagename,address:address,workPhone:workPhone,summary:summary});
                 } else if($('.header-span').attr('id') == 'cusMan'){
                 	$state.go('customerModM',{id:id,workUnit:workUnit,customType:customType,industry:industry,customState:customState,customCity:customCity,customFrom:customFrom,ascription:ascription,pagename:pagename,address:address,workPhone:workPhone,summary:summary});
-                }
-        		
+                }        		
         	}
         }
         //新建跟进记录方法
@@ -729,7 +742,9 @@ angular.module('cus.controller',[])
                     //调用成功的回调函数
                     promise.success(function(data) {
                     	layer.msg("删除成功!");
-                    	$scope.queryCusMan(1);
+                    	setTimeout(function(){
+                    		$scope.queryCusMan(1);
+        				},500);
                     });
                     //调用失败的回调函数
                     promise.error(function() {
@@ -745,34 +760,35 @@ angular.module('cus.controller',[])
         	if($('#table2 tr:not(.ng-hide,.header-tr) :checked').length > 1 || $('#table2 tr:not(.ng-hide,.header-tr) :checked').length == 0) {
         		layer.msg("请选择一条数据！");
         	} else {
-        		//Id，传递给修改页面
-        		var id = $($($('#table2 :checked').parents('tr')).children()[0]).text();
-        		// 调用service分页查询业务功能
-                var promise = queryCusService.updateDistribution(id);
-                //调用成功的回调函数
-                promise.success(function(data) {
-                	
-                	if(data.status == 500){
-                		if(data.message == '未登录！'){
-                			layer('未登录，请从新登录！');  
-                			setTimeout(function(){
-                        		window.location.href = 'u/login.shtml';
-            				},300);
-                		} else {
-                			layer.msg(data.message);
-                		}
-                		
-                	} else {
-                		layer.msg("划归成功!");
-                		$scope.queryCusHSea(1);
-                	}
-                });
-                //调用失败的回调函数
-                promise.error(function() {
-                    layer.closeAll();
-                    layer.msg('网络连接请求失败！');             
-                }); 
-        		
+        		$.alertable.confirm("您确定要将此客户规划名下吗?").then(function(){
+        			//Id，传递给修改页面
+            		var id = $($($('#table2 :checked').parents('tr')).children()[0]).text();
+            		// 调用service分页查询业务功能
+                    var promise = queryCusService.updateDistribution(id);
+                    //调用成功的回调函数
+                    promise.success(function(data) {                    	
+                    	if(data.status == 500){
+                    		if(data.message == '未登录！'){
+                    			layer('未登录，请从新登录！');  
+                    			setTimeout(function(){
+                            		window.location.href = 'u/login.shtml';
+                				},500);
+                    		} else {
+                    			layer.msg(data.message);
+                    		}                    		
+                    	} else {
+                    		layer.msg("划归成功!");
+                    		setTimeout(function(){
+                    			$scope.queryCusHSea(1);
+            				},500);
+                    	}
+                    });
+                    //调用失败的回调函数
+                    promise.error(function() {
+                        layer.closeAll();
+                        layer.msg('网络连接请求失败！');             
+                    }); 
+        		});
         	}
         }
         //释放客户方法
@@ -781,35 +797,36 @@ angular.module('cus.controller',[])
         	if($('#table2 tr:not(.ng-hide,.header-tr) :checked').length == 0) {
         		layer.msg("请选择一条数据！");
         	} else {
-        		//提示是否确定删除
-        		if(!confirm("您确定要将选择客户放回公海吗？")){
-            		return;
-            	}
-        		//声明一个空数组
-        		var cusIds = [];
-        		//将选中的id将如数组中
-        		for(var i = 0; i < $('#table2 tr:not(.ng-hide,.header-tr) :checked').length;i ++ ){
-        			cusIds[i] = $($($('#table2 :checked').parents('tr')[i]).children()[0]).text();
-        		}
-        		//将获取到的数据拼接成字符串
-        		var ids = cusIds.join(',');
-        		// 调用service业务功能
-                var promise = delCusService.relCusMsg(ids);
-                //调用成功的回调函数
-                promise.success(function(data) {
-                	layer.msg("释放成功!");
-                	//页面加载时默认加载第一页
-                    if($('.header-span').attr('id') == 'myCus'){
-                    	$scope.queryCus(1);
-                    } else if($('.header-span').attr('id') == 'cusMan'){
-                    	$scope.queryCusMan(1);
-                    }
-                });
-                //调用失败的回调函数
-                promise.error(function() {
-                    layer.closeAll();
-                    layer.msg('网络连接请求失败！');             
-                });        		
+        		//提示是否确定释放
+        		$.alertable.confirm("您确定要将选择客户放回公海吗？").then(function(){
+        			//声明一个空数组
+            		var cusIds = [];
+            		//将选中的id将如数组中
+            		for(var i = 0; i < $('#table2 tr:not(.ng-hide,.header-tr) :checked').length;i ++ ){
+            			cusIds[i] = $($($('#table2 :checked').parents('tr')[i]).children()[0]).text();
+            		}
+            		//将获取到的数据拼接成字符串
+            		var ids = cusIds.join(',');
+            		// 调用service业务功能
+                    var promise = delCusService.relCusMsg(ids);
+                    //调用成功的回调函数
+                    promise.success(function(data) {
+                    	layer.msg("释放成功!");
+                    	setTimeout(function(){
+                    		//页面加载时默认加载第一页
+                            if($('.header-span').attr('id') == 'myCus'){
+                            	$scope.queryCus(1);
+                            } else if($('.header-span').attr('id') == 'cusMan'){
+                            	$scope.queryCusMan(1);
+                            }
+        				},500);
+                    });
+                    //调用失败的回调函数
+                    promise.error(function() {
+                        layer.closeAll();
+                        layer.msg('网络连接请求失败！');             
+                    });  
+        		});   		
         	}
         }
         //导出方法
@@ -845,6 +862,7 @@ angular.module('cus.controller',[])
         	$scope.Address = $(tr.children()[16]).text();
         	$scope.WorkPhone = $(tr.children()[17]).text();
         }
+        //查看跟进记录方法
         $scope.queryFollowDetails = function(e) {
         	e = e || window.event;//兼容事件对象
 			var currObj = e.target || e.srcElement; //事件源对象兼容写法
@@ -914,11 +932,11 @@ angular.module('cus.controller',[])
         }
     }])
     //新增客户控制器
-    .controller('addCusController', ['$scope','$state','$stateParams','addCusService','queryCusService',function($scope,$state,$stateParams,addCusService,queryCusService){   
+    .controller('addCusController', ['$scope','$state','$stateParams','addCusService','queryCusService','followRService',function($scope,$state,$stateParams,addCusService,queryCusService,followRService){   
     	if($('#aside').offset().left == 0){
 	    	$('#mainView').animate({left:212},10);
     	} else {
-	    	$('#mainView').animate({left:60},10);
+	    	$('#mainView').animate({left:50},10);
     	}
     	$scope.workUnit = "";//单位名称
     	$scope.address = "";//公司地址
@@ -986,6 +1004,22 @@ angular.module('cus.controller',[])
                 layer.msg('网络连接请求失败！');             
             });
         }
+        //获取所属业务员方法
+        $scope.getAscription = function(){
+    		// 调用service业务功能
+            var promise = followRService.getAsc();
+            //调用成功的回调函数
+            promise.success(function(data) {
+            	$scope.ascription = data.record;
+            });
+            //调用失败的回调函数
+            promise.error(function() {
+                layer.closeAll();
+                layer.msg('网络连接请求失败！');             
+            });
+    	}
+        //获取跟踪人
+        $scope.getAscription();
         //查询来源方法
         $scope.queryForm = function(list) {
         	var promise = queryCusService.queryListMsg(list);
@@ -1005,6 +1039,22 @@ angular.module('cus.controller',[])
         $scope.queryState('khzt');
         $scope.queryCity('szcs');
         $scope.queryForm('khly');
+        //获得单位名称
+        //获取单位名称方法
+        $scope.getCustomer = function(){
+        	// 调用service业务功能
+            var promise = followRService.getCus();
+            //调用成功的回调函数
+            promise.success(function(data) {
+                $scope.getWorkUnit = data.successCount;
+            });
+            //调用失败的回调函数
+            promise.error(function() {
+                layer.closeAll();
+                layer.msg('网络连接请求失败！');             
+            });
+        }
+        $scope.getCustomer();
         //新增字典方法
         $scope.addCus = function() {
         	var customType = $('#customType :selected').val();//类型
@@ -1013,6 +1063,15 @@ angular.module('cus.controller',[])
             var customCity = $('#customCity :selected').val();//城市
             var customFrom = $('#customFrom :selected').val();//来源
             var ascription = $('#ascription').val();//来源
+            if($('#ascription').length == 0){
+            	var ascription = "";
+            }
+        	for(var i = 0;i < $scope.getWorkUnit.length;i ++){
+        		if($scope.workUnit == $scope.getWorkUnit[i].workUnit){
+        			layer.msg("此单位已存在!");
+        			return;
+        		}
+        	}
             if($scope.workUnit == ''){ 
                 layer.msg("单位名称不能为空!");  
                 return; 
@@ -1035,27 +1094,25 @@ angular.module('cus.controller',[])
             	layer.msg("来源不能为空!");
             	return; 
             }
-//            else if($('#headN').text() != '我的客户'){
-//            	if($scope.ascription == ''){
-//                	layer.msg("所属业务员不能为空!");
-//                	return;
-//            	}
-//            }
-        	//传递的参数
+            //传递的参数
             var params = {
-            	workUnit:$scope.workUnit,
-            	address:$scope.address,
-            	workPhone:$scope.workPhone,
-            	summary:$scope.summary,
-            	customType:customType,
-            	industry:industry,
-            	customState:customState,
-            	customCity:customCity, 
-            	customFrom:customFrom,
-            	ascription:ascription
-            }
+            		workUnit:$scope.workUnit,
+            		address:$scope.address,
+            		workPhone:$scope.workPhone,
+            		summary:$scope.summary,
+            		customType:customType,
+            		industry:industry,
+            		customState:customState,
+            		customCity:customCity, 
+            		customFrom:customFrom,
+            		ascription:ascription
+            }     	
             //调用service里的新增功能
-            var promise = addCusService.addCusMsg(params);
+          	if(pagename == 'myCus'){
+        	  	var promise = addCusService.addCusMsg(params);
+          	} else if(pagename == 'cusMan'){
+        	  	var promise = addCusService.addCusManMsg(params);
+          	}
             //加载提示
             layer.load(1);
             //成功的回调函数
@@ -1077,8 +1134,7 @@ angular.module('cus.controller',[])
             promise.error(function() {
                 layer.closeAll();
                 layer.msg('网络连接请求失败！');             
-            });            
-            
+            });                   
         }        
     }])
     //修改客户控制器
@@ -1086,7 +1142,7 @@ angular.module('cus.controller',[])
     	if($('#aside').offset().left == 0){
 	    	$('#mainView').animate({left:212},10);
     	} else {
-	    	$('#mainView').animate({left:60},10);
+	    	$('#mainView').animate({left:50},10);
     	}
     	var id = $stateParams.id;//id
     	$scope.workUnit = $stateParams.workUnit;//单位名称
@@ -1178,8 +1234,7 @@ angular.module('cus.controller',[])
         $scope.queryIndustry('khhy');
         $scope.queryState('khzt');
         $scope.queryCity('szcs');
-        $scope.queryForm('khly');
-        
+        $scope.queryForm('khly');        
         //修改客户方法
         $scope.modCus = function() {
         	var customType = $('#customType :selected').val();//类型
@@ -1226,7 +1281,7 @@ angular.module('cus.controller',[])
             	customState:customState,
             	customCity:customCity, 
             	customFrom:customFrom,
-            	ascription:ascription,
+            	//ascription:ascription,
             	address:$scope.address,
             	workPhone:$scope.workPhone,
             	summary:$scope.summary

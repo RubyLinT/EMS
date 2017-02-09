@@ -238,6 +238,10 @@ a:hover {
 	max-height:150px;
 	overflow:auto;
 }
+.fixed img {
+	max-width:90%;
+	max-height:150px;
+}
 /*页码*/
 #pagination {
 	margin:0;

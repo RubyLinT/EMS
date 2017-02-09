@@ -5,13 +5,13 @@ angular.module('notice.controller',[])
     	if($('#aside').offset().left == 0){
 	    	$('#mainView').animate({left:212},10);
     	} else {
-	    	$('#mainView').animate({left:60},10);
+	    	$('#mainView').animate({left:50},10);
     	}
     	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">消息通知&gt;新建消息</i>');
 		$('.list-group-item').removeClass('hl');
     	$('#noticeLink').addClass('hl');
         $scope.title = "";//标题
-        $scope.publisher = "";//推送人
+        //$scope.publisher = "";//推送人
         $scope.content = "";//推送内容
         //获取所在部门联动数据
         $scope.queryDepartment = function() {
@@ -70,13 +70,17 @@ angular.module('notice.controller',[])
         	//传递的参数
             var params = {
             	title:$scope.title,
-            	publisher:$scope.publisher,
+            	//publisher:$scope.publisher,
             	content:$scope.content,
             	userIds:$('#department').attr('data-id'),
             	isPush:isPush
             }  
             if($scope.title == ''){
                 layer.msg("标题不能为空！");
+            } else if($scope.content == ''){
+                layer.msg("内容不能为空！");
+            } else if($('#department').attr('data-id') == ''){
+                layer.msg("请选择收件人！");
             } else {
                 //调用service里的新增消息功能
                 var promise = noticeService.addNoticeMsg(params);
@@ -190,7 +194,7 @@ angular.module('notice.controller',[])
         	if($('#aside').offset().left == 0){
 		    	$('#mainView').animate({left:212},10);
 	    	} else {
-		    	$('#mainView').animate({left:60},10);
+		    	$('#mainView').animate({left:50},10);
 	    	}
         	$('#table1 tr :checkbox').prop('checked',false);
         	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">消息通知</i>');
@@ -340,7 +344,7 @@ angular.module('notice.controller',[])
 				layer.msg("此消息已推送!");
 				return;
 			}
-			$.alertable.confirm("您确定要删除吗?").then(function(){
+			$.alertable.confirm("您确定要推送吗?").then(function(){
 				var tr = $(currObj).parents('tr');
 	        	var id = $(tr.children()[0]).text();
 	        	var params = {

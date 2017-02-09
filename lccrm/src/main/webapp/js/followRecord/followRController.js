@@ -8,9 +8,9 @@ angular.module('fol.controller',[])
     	var nowTemp = new Date();
 		var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 		var checkin = $('#startTime').fdatepicker({
-			onRender: function (date) {
-				return date.valueOf() < now.valueOf() ? 'disabled' : '';
-			}
+//			onRender: function (date) {
+//				return date.valueOf() < now.valueOf() ? 'disabled' : '';
+//			}
 		}).on('changeDate', function (ev) {
 			if (ev.date.valueOf() > checkout.date.valueOf()) {
 				var newDate = new Date(ev.date)
@@ -239,7 +239,7 @@ angular.module('fol.controller',[])
         	if($('#aside').offset().left == 0){
 		    	$('#mainView').animate({left:212},10);
 	    	} else {
-		    	$('#mainView').animate({left:60},10);
+		    	$('#mainView').animate({left:50},10);
 	    	}
         	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">跟进记录</i>');
         	$('.list-group-item').removeClass('hl');
@@ -416,7 +416,7 @@ angular.module('fol.controller',[])
     	if($('#aside').offset().left == 0){
 	    	$('#mainView').animate({left:212},10);
     	} else {
-	    	$('#mainView').animate({left:60},10);
+	    	$('#mainView').animate({left:50},10);
     	}
     	var nowTemp = new Date();
 		var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
@@ -530,7 +530,10 @@ angular.module('fol.controller',[])
     		var trackFile = $('#trackFile').val();
     		var nextTrackDate = $('#nextTrackDate').val();
     		var nextComtent = $('#nextComtent').val();
-    		
+    		if($('#contactId').val() == ''){
+    			layer.msg('请输入联系人！');
+    			return;
+    		}
     		if($('#reminderDate').prop('checked')){
     			var reminderDate = 1;
     		} else {
@@ -568,7 +571,7 @@ angular.module('fol.controller',[])
             //调用失败的回调函数
             promise.error(function() {
                 layer.closeAll();
-                layer.msg('网络连接请求失败！');             
+                layer.msg('网络连接请求失败111！');             
             });
     	}
     }]);

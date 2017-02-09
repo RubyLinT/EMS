@@ -3,28 +3,30 @@
     <form class="form-horizontal" role="form">        
     	<!-- 标题 -->
         <div class="form-group"> 
-            <label for="title" class="col-sm-3 control-label">标题:</label>
+            <label for="title" class="col-sm-3 control-label"><span class="color">*</span>标题:</label>
             <div class="col-sm-7">
                 <input type="text" id="title" ng-model="title" class="form-control" placeholder="请输入标题">
             </div>
         </div>  
         <!-- 推送人 -->
+        <!-- 
         <div class="form-group"> 
             <label for="publisher" class="col-sm-3 control-label">推送人:</label>
             <div class="col-sm-7">
                 <input type="text" id="publisher" ng-model="publisher" class="form-control" placeholder="请输入推送人">
             </div>
-        </div>    
+        </div>  
+         -->
         <!-- 推送内容 -->  
         <div class="form-group"> 
-            <label for="content" class="col-sm-3 control-label">推送内容:</label>
+            <label for="content" class="col-sm-3 control-label"><span class="color">*</span>推送内容:</label>
             <div class="col-sm-7">
                 <input type="text" id="content" ng-model="content" class="form-control" placeholder="请输入推送内容">
             </div>
         </div> 
 		<!-- 收件人-->  
         <div class="form-group"> 
-            <label for="content" class="col-sm-3 control-label">收件人:</label>
+            <label for="content" class="col-sm-3 control-label"><span class="color">*</span>收件人:</label>
             <div class="col-sm-7 dropinput">
                 <input type="text" id="department" ng-model="department" class="form-control" placeholder="请输入收件人" readonly value="" data-id="">
                 <span class="caret dropselect" ng-click="showMenu();"></span>

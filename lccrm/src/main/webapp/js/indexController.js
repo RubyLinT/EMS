@@ -5,6 +5,7 @@ angular.module('index.controller',[])
 	    //侧边栏高亮
 	    $('#sidebar').on('click', 'a', function(e) {
 	        $('#sidebar a').removeClass('hl');
+	        //console.log($(e.target).parents('a').hasClass('hl'));
 	        $(e.target).parents('a').addClass('hl');
 	    });
 	    //隐藏侧边栏
@@ -71,19 +72,14 @@ angular.module('index.controller',[])
         		window.location.href = 'login.html';
 			},300);
 		});
-	    //判断当前是否登录
-	    var timerId = setInterval(function(){
-	    	if($('#aside').offset().left == 0){
-		    	$('#mainView').animate({left:212},10);
-	    	} else {
-		    	$('#mainView').animate({left:50},10);
-	    	}
-	    	if($scope.userName == undefined){
-		    	layer.msg('未登录，请您从新登录！');   
-		    	setTimeout(function(){
-		    		window.location.href = 'login.html';
-		    	},300);
-		    }
+	    if($scope.userName == undefined){
+	    	layer.msg('未登录，请您从新登录！！！');   
+	    	setTimeout(function(){
+	    		window.location.href = 'login.html';
+	    	},500);
+	    }
+	    //更新消息数据
+	    var timerId = setInterval(function(){	    	
 	    	if($('#addNotice').get(0)){
 	    		//每新建消息，更新新的消息总数和消息标题
 	    	    $('#addNotice').click(function(){
@@ -204,4 +200,28 @@ angular.module('index.controller',[])
 				layer.msg('网络连接请求失败！');
 			});			
 		}
+		document.addEventListener('click',function(){
+			//获取当前登录人
+		    $.ajax({
+	    		async:false, //true异步请求（默认）,false同步请求
+				url: 'user/findAccount.shtml',
+				type: 'GET',
+				dataType: 'json'
+	    	})
+	    	.done(function(data) {
+	    		$scope.userNameA = data.nickName;
+			})
+			.fail(function(xhr,errorStatus,errorText) {
+				layer.msg('未登录，请从新登录！');   
+	            setTimeout(function(){
+	        		window.location.href = 'login.html';
+				},300);
+			});
+			if($scope.userNameA == undefined){
+		    	layer.msg('未登录，请您从新登录！');   
+		    	setTimeout(function(){
+		    		window.location.href = 'login.html';
+		    	},500);
+		    }
+		},true);
 	}]);

@@ -3,8 +3,7 @@ angular.module('departmentTree.controller',[])
 	.controller('departmentTreeController', ['$scope',function($scope){
 		$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">部门管理</i>');
 		$('.list-group-item').removeClass('hl');
-    	$('#userManLink').addClass('hl');
-    	
+    	$('#userManLink').addClass('hl');    	
     	var IDMark_A = "_a";
     	$scope.departNameM = "";
     	//配置设置
@@ -39,8 +38,7 @@ angular.module('departmentTree.controller',[])
             		} 
             	}
     		})
-    		.fail(function(xhr,errorStatus,errorText) {
-    			
+    		.fail(function(xhr,errorStatus,errorText) {   			
     		});
 			$('#higherDepartName').text($(currObj).parents('a').attr('title'));
 			$('#higherDepartId').text(id);
@@ -68,8 +66,7 @@ angular.module('departmentTree.controller',[])
             		} 
             	}
     		})
-    		.fail(function(xhr,errorStatus,errorText) {
-    			
+    		.fail(function(xhr,errorStatus,errorText) {    			
     		});
 			if(pId == 0){
 				$('#higherDepartNameM').text($(currObj).parents('a').attr('title'));
@@ -83,6 +80,7 @@ angular.module('departmentTree.controller',[])
 			$('#departNameM').val($(currObj).parents('a').attr('title'));
 			$('#myModalMod').modal('show');
 		};
+		//增加结点方法
 		$scope.addNode = function() {
 			var higherDepartId = $('#higherDepartId').text();
 			var departName = $('#departName').val();
@@ -104,6 +102,7 @@ angular.module('departmentTree.controller',[])
 			$('#departName').val('');
 			$('#Remark').val('');
 		};
+		//修改结点方法
 		$scope.modNode = function() {
 			var higherDepartId = $('#higherDepartIdM').text();
 			var Remark = $('#RemarkM').val();
@@ -149,8 +148,7 @@ angular.module('departmentTree.controller',[])
     			zTree.removeNode(treeNode, true);
     		});
 		};
-        function addHoverDom(treeId, treeNode) {
-			
+        function addHoverDom(treeId, treeNode) {			
 			var aObj = $("#" + treeNode.tId + IDMark_A);
 			if(treeNode && !treeNode.isParent){
 				if ($("#diyBtnA_"+treeNode.id).length>0) return;
@@ -184,11 +182,12 @@ angular.module('departmentTree.controller',[])
 			$("#diyBtnD_"+treeNode.id).unbind().remove();
 		}
     	var zNodes =[];
+    	//创建zTree
     	function createZNodes(){
     		if($('#aside').offset().left == 0){
 		    	$('#mainView').animate({left:212},10);
 	    	} else {
-		    	$('#mainView').animate({left:60},10);
+		    	$('#mainView').animate({left:50},10);
 	    	}
     		layer.load();
     		$.ajax({

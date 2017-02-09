@@ -5,7 +5,7 @@ angular.module('emp.controller',[])
     	if($('#aside').offset().left == 0){
 	    	$('#mainView').animate({left:212},10);
     	} else {
-	    	$('#mainView').animate({left:60},10);
+	    	$('#mainView').animate({left:50},10);
     	}
     	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">员工管理&gt;新建员工</i>');
 		$('.list-group-item').removeClass('hl');
@@ -171,7 +171,7 @@ angular.module('emp.controller',[])
     	if($('#aside').offset().left == 0){
 	    	$('#mainView').animate({left:212},10);
     	} else {
-	    	$('#mainView').animate({left:60},10);
+	    	$('#mainView').animate({left:50},10);
     	}
     	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">员工管理&gt;修改员工</i>');
 		$('.list-group-item').removeClass('hl');
@@ -498,7 +498,7 @@ angular.module('emp.controller',[])
         	if($('#aside').offset().left == 0){
 		    	$('#mainView').animate({left:212},10);
 	    	} else {
-		    	$('#mainView').animate({left:60},10);
+		    	$('#mainView').animate({left:50},10);
 	    	}
         	$('#tableEmp tr :checkbox').prop('checked',false);
         	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">员工管理</i>');

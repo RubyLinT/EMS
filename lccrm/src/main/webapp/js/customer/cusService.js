@@ -116,7 +116,7 @@ angular.module('cus.service',[ ])
 				//返回一个promise对象，给controller
 				return promise;
 			},
-			//划归名下方法
+			//导出方法
 			exportFun:function(){
 				//发送请求
 				var promise = $http.post('customer/export.shtml');
@@ -148,6 +148,15 @@ angular.module('cus.service',[ ])
 				var params = params;
 				//发送请求
 				var promise = $http.post('customer/addCustomer.shtml',params);
+				//返回一个promise对象，给controller
+				return promise;
+			},
+			//新增数据方法
+			addCusManMsg:function(params){
+				//传递的请求参数
+				var params = params;
+				//发送请求
+				var promise = $http.post('customer/addCustomerformanage.shtml',params);
 				//返回一个promise对象，给controller
 				return promise;
 			}

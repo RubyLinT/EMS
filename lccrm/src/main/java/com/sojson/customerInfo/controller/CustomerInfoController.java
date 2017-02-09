@@ -165,7 +165,7 @@ public class CustomerInfoController extends BaseController {
 	}
 	
 	/**
-	 * 新增客户数据
+	 * 我的客户新增客户数据
 	 * by chendf 2016/12/29
 	 * @param record
 	 * @return
@@ -176,22 +176,24 @@ public class CustomerInfoController extends BaseController {
 		try {
 			//获取当前登录帐号为email
 			String email = TokenManager.getToken().getEmail();
-			UUser user = userService.findUserByEmail(email);
-			record.setAddPeople(user.getId());
+			String ascription = record.getAscription();
+			int count;
 			Long id = customerInfoService.selectMaxId();
 			Long customId = id + 1;
 			record.setCustomId(customId.toString());
-			int count;
-			if(email.equals("admin") == false){
+			if (ascription.equals("")||ascription.equals("null")) {
+				UUser user = userService.findUserByEmail(email);
+				record.setAddPeople(user.getId());
 				record.setAscription(email);
 				count = customerInfoService.addCustomer(record);
 				resultMap.put("status", 200);
 				resultMap.put("successCount", count);
-			}else{
+			} else {
 				count = customerInfoService.addCustomer(record);
 				resultMap.put("status", 200);
 				resultMap.put("successCount", count);
 			}
+
 		} catch (Exception e) {
 			resultMap.put("status", 500);
 			resultMap.put("message", "添加失败，请刷新后再试！");
@@ -200,6 +202,30 @@ public class CustomerInfoController extends BaseController {
 		return resultMap;
 	}
 	
+	
+	/**
+	 * 客户管理新增客户数据
+	 * @param record
+	 * @return
+	 */
+	@RequestMapping(value = "addCustomerformanage")
+	@ResponseBody
+	public Map<String,Object> addDictionaryformanage(HttpServletRequest request, CustomerInfo record){
+		try {
+			int count;
+			Long id = customerInfoService.selectMaxId();
+			Long customId = id + 1;
+			record.setCustomId(customId.toString());
+				count = customerInfoService.addCustomer(record);
+				resultMap.put("status", 200);
+				resultMap.put("successCount", count);
+		} catch (Exception e) {
+			resultMap.put("status", 500);
+			resultMap.put("message", "添加失败，请刷新后再试！");
+			LoggerUtils.fmtError(getClass(), e, "新增客户报错。source[%s]",record.toString());
+		}
+		return resultMap;
+	}
 	/**
 	 * 释放客户信息
 	 * @param record

@@ -5,7 +5,7 @@ angular.module('dic.controller',[])
     	if($('#aside').offset().left == 0){
 	    	$('#mainView').animate({left:212},10);
     	} else {
-	    	$('#mainView').animate({left:60},10);
+	    	$('#mainView').animate({left:50},10);
     	}
     	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">数据字典&gt;新建字典</i>');
 		$('.list-group-item').removeClass('hl');
@@ -126,7 +126,7 @@ angular.module('dic.controller',[])
     	if($('#aside').offset().left == 0){
 	    	$('#mainView').animate({left:212},10);
     	} else {
-	    	$('#mainView').animate({left:60},10);
+	    	$('#mainView').animate({left:50},10);
     	}
     	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">数据字典&gt;修改字典</i>');
 		$('.list-group-item').removeClass('hl');
@@ -187,14 +187,11 @@ angular.module('dic.controller',[])
         //修改字典方法
         $scope.modDic = function() {
         	//判断表单验证是否通过，成功则向下继续执行
-        	var checkId = /^[a-z]{1,12}$/;//只能为小写英文,长度不能超过12
         	//长度不能超过100
             var checkDicTitle = /^\S{1,100}$/;
             //只能输入正整数,不能大于9999
             var checkOrderNum = /^[1-9]\d{0,3}$/;
-            if(!checkId.test($scope.higherDicId)){
-                layer.msg("上级ID不正确！只能为小写英文长度不超过12！");
-            }  else if($scope.dicTitle == ''){
+            if($scope.dicTitle == ''){
                 layer.msg("字典内容不能为空！");
             } else if(!checkDicTitle.test($scope.dicTitle)){
                 layer.msg("字典内容格式不正确！长度不能超过100！");
@@ -233,7 +230,7 @@ angular.module('dic.controller',[])
     	if($('#aside').offset().left == 0){
 	    	$('#mainView').animate({left:212},10);
     	} else {
-	    	$('#mainView').animate({left:60},10);
+	    	$('#mainView').animate({left:50},10);
     	}
     	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">数据字典&gt;增添字典</i>');
     	$scope.id = $stateParams.id;//id
@@ -426,7 +423,7 @@ angular.module('dic.controller',[])
         	if($('#aside').offset().left == 0){
 		    	$('#mainView').animate({left:212},10);
 	    	} else {
-		    	$('#mainView').animate({left:60},10);
+		    	$('#mainView').animate({left:50},10);
 	    	}
         	$('#table1 tr :checkbox').prop('checked',false);
         	$('.titleBox').html('<img src="images/icon_position.png"><i id="ihead">数据字典</i>');
